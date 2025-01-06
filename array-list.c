@@ -6,7 +6,7 @@ ArrayList *createArrayList(position _size, void * _value){
     #ifdef DEBUG_ENABLE
         DEBUG_PRINT(DEBUG_LEVEL_INFO,
             INIT_TYPE_FUNC_DBG(ArrayList *, createArrayList)
-                TYPE_DATA_DBG(position, "_size = %s")
+                TYPE_DATA_DBG(position, "_size = %zu")
                 TYPE_DATA_DBG(void *, "_value = %p")
             END_TYPE_FUNC_DBG,
             _size, _value);
