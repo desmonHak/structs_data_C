@@ -7,7 +7,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <time.h>
-#include "./DebugLibC/debug_c.h"
+#include "debug_c.h"
 
 #if defined(DEBUG_ENABLE) && defined(DEBUG_HASH_TABLE)
 #define DEBUG_PRINT_HASH_TABLE DEBUG_PRINT
@@ -41,6 +41,7 @@ void freeHashTable_all(HashTable* hashTable, void (*freeValue)(void*));
 #define freeHashTable(...) GET_MACRO(__VA_ARGS__, freeHashTable_all, freeHashTable_struct)(__VA_ARGS__)
 #endif
 
-
+#ifdef INCLUDE_COLORS_C
 #include "hash-table.c"
+#endif
 #endif

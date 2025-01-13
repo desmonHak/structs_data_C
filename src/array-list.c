@@ -75,40 +75,7 @@ void push_back_a(ArrayList *self, void * _data){
     } else self->Array[self->Size++] = _data;
 }
 
-static inline position size_a(ArrayList *self){
-    #ifdef DEBUG_ENABLE
-        DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(position, size_a)
-                TYPE_DATA_DBG(ArrayList *, "self = %p")
-            END_TYPE_FUNC_DBG,
-            self);
-    #endif
-    /*
-     *  
-     *  size_a(self): Devuelve la cantidad de 
-     *      elementos almacenados en el array.
-     * 
-     */
-    return self->Size;
-}
 
-static inline position capacity(ArrayList *self){
-    #ifdef DEBUG_ENABLE
-        DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(position, capacity)
-                TYPE_DATA_DBG(ArrayList *, "self = %p")
-            END_TYPE_FUNC_DBG,
-            self);
-    #endif
-    /*
-     *
-     *  capacity(self): Devuelve la capacidad actual del array, 
-     *  el tamaño maximo que puede alcanzar sin necesidad de 
-     *  redimensionarlo.
-     * 
-     */
-    return self->Capacity;
-}
 
 void pop_back_a(ArrayList *self){
     #ifdef DEBUG_ENABLE

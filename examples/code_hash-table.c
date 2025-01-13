@@ -2,8 +2,8 @@
 #define DEBUG_ENABLE
 #endif
 
-#include "../DebugLibC/time_code.h"
-#include "../hash-table.h"
+#include "time_code.h"
+#include "hash-table.h"
 
 int main() {
 

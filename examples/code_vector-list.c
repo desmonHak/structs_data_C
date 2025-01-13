@@ -1,8 +1,8 @@
 #define DEBUG_ENABLE 
 #define __VECTOR_LIST_DEBBUG__
 
-#include "../DebugLibC/time_code.h"
-#include "../vector-list.h"
+#include "time_code.h"
+#include "vector-list.h"
 
 int main()
 {

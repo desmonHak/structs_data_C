@@ -23,5 +23,7 @@ dimensiones get_size_size_total(dimensiones dimensionesMatriz, ...);
 ArrayList* dimensiones_matriz(dimensiones dimensionesMatriz, ...);
 ArrayList* dimensiones_matriz_va_list(dimensiones dimensionesMatriz, va_list args);
 
+#ifdef INCLUDE_COLORS_C
 #include "matriz-list.c"
+#endif
 #endif

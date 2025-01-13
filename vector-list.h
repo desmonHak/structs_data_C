@@ -228,5 +228,7 @@ const position get_position(Node *node);
  */
 void free_all_vector();
 
+#ifdef INCLUDE_COLORS_C
 #include "vector-list.c"
+#endif
 #endif

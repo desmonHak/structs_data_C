@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include "./DebugLibC/debug_c.h"
+#include "debug_c.h"
 
 #ifndef push_back
 #define push_back(array, ...) _Generic((array), \
@@ -101,7 +101,22 @@ void shrink_to_fit(ArrayList *self);
  *      elementos almacenados en el array.
  * 
  */
-static inline position size_a(ArrayList *self);
+static inline position size_a(ArrayList *self){
+    #ifdef DEBUG_ENABLE
+        DEBUG_PRINT(DEBUG_LEVEL_INFO,
+            INIT_TYPE_FUNC_DBG(position, size_a)
+                TYPE_DATA_DBG(ArrayList *, "self = %p")
+            END_TYPE_FUNC_DBG,
+            self);
+    #endif
+    /*
+     *  
+     *  size_a(self): Devuelve la cantidad de 
+     *      elementos almacenados en el array.
+     * 
+     */
+    return self->Size;
+}
 
 /*
  *
@@ -110,7 +125,23 @@ static inline position size_a(ArrayList *self);
  *  redimensionarlo.
  * 
  */
-static inline position capacity(ArrayList *self);
+static inline position capacity(ArrayList *self){
+    #ifdef DEBUG_ENABLE
+        DEBUG_PRINT(DEBUG_LEVEL_INFO,
+            INIT_TYPE_FUNC_DBG(position, capacity)
+                TYPE_DATA_DBG(ArrayList *, "self = %p")
+            END_TYPE_FUNC_DBG,
+            self);
+    #endif
+    /*
+     *
+     *  capacity(self): Devuelve la capacidad actual del array, 
+     *  el tamaño maximo que puede alcanzar sin necesidad de 
+     *  redimensionarlo.
+     * 
+     */
+    return self->Capacity;
+}
 
 /*
  *  
@@ -147,5 +178,7 @@ void forEach(ArrayList *self);
 
 #define __ADD_CAPACITY__ 2
 
+#ifdef INCLUDE_COLORS_C
 #include "array-list.c"
+#endif
 #endif

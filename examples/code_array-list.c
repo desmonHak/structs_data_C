@@ -2,8 +2,8 @@
 #define DEBUG_ENABLE
 #endif
  
-#include "../DebugLibC/time_code.h"
-#include "../array-list.h"
+#include "time_code.h"
+#include "array-list.h"
 
 int main(){
 
