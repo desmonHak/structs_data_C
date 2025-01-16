@@ -1,10 +1,10 @@
 include config.mk
 
-all: generate_lib
-	$(MAKE) -C . -f $(MAKE_NAME) examples
-
 generate_lib: libdebug.a $(TARGET).a
 	ar -t $(TARGET).a
+
+all: generate_lib
+	$(MAKE) -C . -f $(MAKE_NAME) examples
 
 examples: generate_lib
 	$(CC) examples/code_array-list.c    		 $(CFLAGS_EXAMPLES)   -o examples/code_array-list.$(EXTENSION)
