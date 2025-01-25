@@ -4,12 +4,6 @@
 #include <stdbool.h>
 #include "array-list.h"
 
-#if defined(DEBUG_ENABLE) && defined(DEBUG_VECTOR_LIST)
-#define DEBUG_PRINT_VECTOR_LIST DEBUG_PRINT
-#else
-#define DEBUG_PRINT_VECTOR_LIST
-#endif
-
 #define get_element(type, name, posicion) \
     get_val(type, get_element_v(name, posicion))
     
