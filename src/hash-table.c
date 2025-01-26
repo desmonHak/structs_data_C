@@ -170,19 +170,20 @@ void printHashTable(HashTable* hashTable) {
     los valores asociados a cada entrada deben ser liberados por el programador.
 */
 void freeHashTable_struct(HashTable* hashTable) {
+    DEBUG_PRINT_HASH_TABLE(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(void, freeHashTable_struct)
+            TYPE_DATA_DBG(HashTable*, "hashTable = %p")
+        END_TYPE_FUNC_DBG,
+        hashTable);
     #ifdef DEBUG_ENABLE
-        DEBUG_PRINT_HASH_TABLE(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(void, freeHashTable)
-                TYPE_DATA_DBG(HashTable*, "hashTable = %p")
-            END_TYPE_FUNC_DBG,
-            hashTable);
-
     if (hashTable == NULL){
         debug_set_level(DEBUG_LEVEL_INFO);
         DEBUG_PRINT_HASH_TABLE(DEBUG_LEVEL_INFO, "freeHashTable: NULL(%p)\n", hashTable);
     }
     #endif
+    if (hashTable->table == NULL) return; // If the table is empty, return immediately
     for (size_t i = 0; i < hashTable->size; i++) {
+        
         Entry* entry = hashTable->table[i];
         while (entry != NULL) {
             Entry* temp = entry;
@@ -199,6 +200,12 @@ void freeHashTable_struct(HashTable* hashTable) {
     permite eliminar todos los valores de la tabla hash via callback
 */
 void freeHashTable_all(HashTable* hashTable, void (*freeValue)(void*)) {
+    DEBUG_PRINT_HASH_TABLE(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(void, freeHashTable_all)
+            TYPE_DATA_DBG(HashTable*, "hashTable = %p")
+            TYPE_DATA_DBG(void (*)(void*), "freeValue = %p")
+        END_TYPE_FUNC_DBG,
+        hashTable, freeValue);
     if (hashTable == NULL) return;
 
     for (size_t i = 0; i < hashTable->capacity; i++) {
