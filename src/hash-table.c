@@ -29,13 +29,22 @@ HashTable* createHashTable(size_t size) {
             END_TYPE_FUNC_DBG,
             size);
     #endif
+    if (size == 0) {
+        return NULL;
+    }
     HashTable* hashTable; //= (HashTable*)malloc(sizeof(HashTable));
-    debug_malloc(HashTable, hashTable, sizeof(HashTable) * 1);
+    debug_calloc(HashTable, hashTable, 1, sizeof(HashTable));
 
     hashTable->size = 0;
     hashTable->capacity = size;
+    hashTable->table = NULL;
+
     //hashTable->table = (Entry**)calloc(size, sizeof(Entry*));
     debug_calloc(Entry*, hashTable->table, size, sizeof(Entry*));
+    if (!hashTable->table) {
+        free(hashTable); // Libera la memoria previamente asignada si falla.
+        return NULL;
+    }
     return hashTable;
 }
 
@@ -179,6 +188,7 @@ void freeHashTable_struct(HashTable* hashTable) {
     if (hashTable == NULL){
         debug_set_level(DEBUG_LEVEL_INFO);
         DEBUG_PRINT_HASH_TABLE(DEBUG_LEVEL_INFO, "freeHashTable: NULL(%p)\n", hashTable);
+        return;
     }
     #endif
     if (hashTable->table == NULL) return; // If the table is empty, return immediately
@@ -193,6 +203,10 @@ void freeHashTable_struct(HashTable* hashTable) {
         }
         hashTable->table[i] = NULL; // Set the table slot to NULL after freeing entries
     }
+    free(hashTable->table);     // Libera el arreglo de punteros
+    hashTable->table = NULL;    // Evitar referencias colgantes
+    free(hashTable);            // Libera la estructura principal
+    hashTable = NULL;           // Opcional, pero recomendable
 }
 
 /*
@@ -222,8 +236,10 @@ void freeHashTable_all(HashTable* hashTable, void (*freeValue)(void*)) {
     }
 
     free(hashTable->table);
+    hashTable->table = NULL;    // Evitar referencias colgantes
     free(hashTable);
-    printf("HashTable con valores dinámicos liberada.\n");
+    hashTable = NULL;           // Opcional, pero recomendable
+    DEBUG_PRINT_HASH_TABLE(DEBUG_LEVEL_INFO,"HashTable con valores dinámicos liberada.\n");
 }
 
 #endif
