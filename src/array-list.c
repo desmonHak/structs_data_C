@@ -3,14 +3,12 @@
 #include "array-list.h"
 
 ArrayList *createArrayList(position _size, void * _value){
-    #ifdef DEBUG_ENABLE
-        DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(ArrayList *, createArrayList)
-                TYPE_DATA_DBG(position, "_size = %zu")
-                TYPE_DATA_DBG(void *, "_value = %p")
-            END_TYPE_FUNC_DBG,
-            _size, _value);
-    #endif
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(ArrayList *, createArrayList)
+            TYPE_DATA_DBG(position, "_size = %zu")
+            TYPE_DATA_DBG(void *, "_value = %p")
+        END_TYPE_FUNC_DBG,
+        _size, _value);
     ArrayList *self ;//= (ArrayList *)malloc(sizeof(ArrayList));
     debug_malloc(ArrayList, self, 1*sizeof(ArrayList));
     
@@ -38,14 +36,12 @@ ArrayList *createArrayList(position _size, void * _value){
 }
 
 void push_back_a(ArrayList *self, void * _data){
-    #ifdef DEBUG_ENABLE
-        DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(ArrayList *, createArrayList)
-                TYPE_DATA_DBG(position, "self = %p")
-                TYPE_DATA_DBG(void *, "_data = %p")
-            END_TYPE_FUNC_DBG,
-            self, _data);
-    #endif
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(ArrayList *, createArrayList)
+            TYPE_DATA_DBG(position, "self = %p")
+            TYPE_DATA_DBG(void *, "_data = %p")
+        END_TYPE_FUNC_DBG,
+        self, _data);
     /*
      *  
      *  push_back_a(self, _data): Agrega un elemento al final del arreglo. 
@@ -53,7 +49,7 @@ void push_back_a(ArrayList *self, void * _data){
      *  y el dato a agregar (_data).
      *  
      */
-    if (!_data || !self) return;
+    if (_data == NULL || self == NULL) return;
     if (!self->Size){
         self->Size = self->Capacity = 1;
         //self->Array = (void **)malloc(sizeof(void*) * self->Capacity);
@@ -78,13 +74,11 @@ void push_back_a(ArrayList *self, void * _data){
 
 
 void pop_back_a(ArrayList *self){
-    #ifdef DEBUG_ENABLE
-        DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(ArrayList *, pop_back_a)
-                TYPE_DATA_DBG(ArrayList *, "self = %p")
-            END_TYPE_FUNC_DBG,
-            self);
-    #endif
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(ArrayList *, pop_back_a)
+            TYPE_DATA_DBG(ArrayList *, "self = %p")
+        END_TYPE_FUNC_DBG,
+        self);
     /*
      *  
      *  pop_back_a(self): Elimina el ultimo elemento del array.
@@ -95,14 +89,12 @@ void pop_back_a(ArrayList *self){
 }
 
 void* get_element_a(ArrayList *self, position index) {
-    #ifdef DEBUG_ENABLE
-        DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(void *, get_element_a)
-                TYPE_DATA_DBG(ArrayList *, "self = %p")
-                TYPE_DATA_DBG(position, "index = %zu")
-            END_TYPE_FUNC_DBG,
-            self, index);
-    #endif
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(void *, get_element_a)
+            TYPE_DATA_DBG(ArrayList *, "self = %p")
+            TYPE_DATA_DBG(position, "index = %zu")
+        END_TYPE_FUNC_DBG,
+        self, index);
 
     /*
      *  
@@ -116,10 +108,8 @@ void* get_element_a(ArrayList *self, position index) {
 
     // Validar el puntero del ArrayList y los límites del índice
     if (!self || index >= self->Size) {
-        #ifdef DEBUG_ENABLE
-            DEBUG_PRINT(DEBUG_LEVEL_WARNING,
-                "#{FG:red}[#{FG:yellow}get_element_a#{FG:red}] #{FG:lred}Índice fuera de límites o ArrayList inválido#{FG:white}.\n");
-        #endif
+        DEBUG_PRINT(DEBUG_LEVEL_WARNING,
+            "#{FG:red}[#{FG:yellow}get_element_a#{FG:red}] #{FG:lred}Índice fuera de límites o ArrayList inválido#{FG:white}.\n");
         return NULL; // Índice inválido o ArrayList nulo
     }
 
@@ -129,13 +119,11 @@ void* get_element_a(ArrayList *self, position index) {
 
 
 void *front(ArrayList *self){
-    #ifdef DEBUG_ENABLE
-        DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(void *, front)
-                TYPE_DATA_DBG(ArrayList *, "self = %p")
-            END_TYPE_FUNC_DBG,
-            self);
-    #endif
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(void *, front)
+            TYPE_DATA_DBG(ArrayList *, "self = %p")
+        END_TYPE_FUNC_DBG,
+        self);
     /*
      *  
      *  front(self): Devuelve el primer 
@@ -147,13 +135,11 @@ void *front(ArrayList *self){
 }
 
 void *back_a(ArrayList *self){
-    #ifdef DEBUG_ENABLE
-        DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(void *, back_a)
-                TYPE_DATA_DBG(ArrayList *, "self = %p")
-            END_TYPE_FUNC_DBG,
-            self);
-    #endif
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(void *, back_a)
+            TYPE_DATA_DBG(ArrayList *, "self = %p")
+        END_TYPE_FUNC_DBG,
+        self);
     /*
      *  
      *  back_a(self): Devuelve el ultimo elemento 
@@ -165,13 +151,11 @@ void *back_a(ArrayList *self){
 }
 
 void shrink_to_fit(ArrayList *self){
-    #ifdef DEBUG_ENABLE
-        DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(void , shrink_to_fit)
-                TYPE_DATA_DBG(ArrayList *, "self = %p")
-            END_TYPE_FUNC_DBG,
-            self);
-    #endif
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(void , shrink_to_fit)
+            TYPE_DATA_DBG(ArrayList *, "self = %p")
+        END_TYPE_FUNC_DBG,
+        self);
     /*
      *  
      *  shrink_to_fit(self): Reduce la capacidad del 
@@ -179,7 +163,7 @@ void shrink_to_fit(ArrayList *self){
      *  cantidad de elementos almacenados.
      * 
      */
-    if (!self && !self->Size && self->Size == self->Capacity) return;
+    if (self == NULL || self->Size == 0 || self->Size == self->Capacity) return;
 
     //void **ptr_new = (void **)malloc(sizeof(void *) * self->Size);
     void **ptr_new;
@@ -193,13 +177,11 @@ void shrink_to_fit(ArrayList *self){
 }
 
 void *Destroy(ArrayList *self){
-    #ifdef DEBUG_ENABLE
-        DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(void *, Destroy)
-                TYPE_DATA_DBG(ArrayList *, "self = %p")
-            END_TYPE_FUNC_DBG,
-            self);
-    #endif
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(void *, Destroy)
+            TYPE_DATA_DBG(ArrayList *, "self = %p")
+        END_TYPE_FUNC_DBG,
+        self);
     /*
      *  
      *  Destroy(self): Libera la memoria asignada para 
@@ -216,13 +198,11 @@ void *Destroy(ArrayList *self){
 }
 
 void forEachOld(ArrayList *self){
-    #ifdef DEBUG_ENABLE
-        DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(void , forEachOld)
-                TYPE_DATA_DBG(ArrayList *, "self = %p")
-            END_TYPE_FUNC_DBG,
-            self);
-    #endif
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(void , forEachOld)
+            TYPE_DATA_DBG(ArrayList *, "self = %p")
+        END_TYPE_FUNC_DBG,
+        self);
     /*
      *  
      *  forEach(self): Imprime por pantalla la informacion 
@@ -230,10 +210,8 @@ void forEachOld(ArrayList *self){
      * 
      */
     if(!self && !self->Size) {
-        #ifdef DEBUG_ENABLE
-            DEBUG_PRINT(DEBUG_LEVEL_WARNING,
-                "forEach(): El puntero 'self' es NULL o el tamaño es 0.");
-        #endif
+        DEBUG_PRINT(DEBUG_LEVEL_WARNING,
+            "forEach(): El puntero 'self' es NULL o el tamaño es 0.");
         return;
     }
     printf_color("Vector info\n\n");
@@ -244,25 +222,37 @@ void forEachOld(ArrayList *self){
 }
 
 void forEachNew(ArrayList *self, void (*func)(void *)){
-    #ifdef DEBUG_ENABLE
-        DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(void , forEachNew)
-                TYPE_DATA_DBG(ArrayList *, "self = %p")
-                TYPE_DATA_DBG(void (*)(void *), "func = %p")
-            END_TYPE_FUNC_DBG,
-            func);
-    #endif
     /*
      *  
      *  forEach(self): Imprime por pantalla la informacion 
      *  del arreglo, mostrando cada elemento y su posicion.
      * 
      */
-    if(!self && !self->Size) {
-        #ifdef DEBUG_ENABLE
-            DEBUG_PRINT(DEBUG_LEVEL_WARNING,
-                "forEach(): El puntero 'self' es NULL o el tamaño es 0.");
-        #endif
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(void , forEachNew)
+            TYPE_DATA_DBG(ArrayList *, "self = %p")
+            TYPE_DATA_DBG(void (*)(void *), "func = %p")
+        END_TYPE_FUNC_DBG,
+        func);
+
+    if (func == NULL) {
+        DEBUG_PRINT(DEBUG_LEVEL_WARNING,
+            "forEachNew(): La función de callback es NULL.");
+        return;
+    }
+    if (self == NULL) {
+        DEBUG_PRINT(DEBUG_LEVEL_WARNING,
+            "forEach(): El puntero 'self' es NULL.");
+        return;
+    }
+    if(self->Size <= 0) {
+        DEBUG_PRINT(DEBUG_LEVEL_WARNING,
+            "forEach(): el tamaño es 0.");
+        return;
+    }
+    if (self->Array == NULL) {
+        DEBUG_PRINT(DEBUG_LEVEL_WARNING,
+            "forEach(): La memoria para el arreglo es NULL.");
         return;
     }
 
