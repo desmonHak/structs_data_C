@@ -174,9 +174,22 @@ void *Destroy(ArrayList *self);
  *  del arreglo, mostrando cada elemento y su posicion.
  * 
  */
-void forEach(ArrayList *self);
+void forEachOld(ArrayList *self);
+void forEachNew(ArrayList *self, void (*func)(void *));
 
+void* get_element_a(ArrayList *self, position index);
+
+// Macro para detectar número de argumentos
+#ifndef GET_MACRO
+#define GET_MACRO(_1, _2, NAME, ...) NAME
+#endif
+#ifndef forEach
+#define forEach(...) GET_MACRO(__VA_ARGS__, forEachNew, forEachOld)(__VA_ARGS__)
+#endif
+
+#ifndef __ADD_CAPACITY__
 #define __ADD_CAPACITY__ 2
+#endif
 
 #ifdef INCLUDE_COLORS_C
 #include "array-list.c"

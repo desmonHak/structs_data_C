@@ -94,6 +94,40 @@ void pop_back_a(ArrayList *self){
     self->Array[--self->Size] = 0; 
 }
 
+void* get_element_a(ArrayList *self, position index) {
+    #ifdef DEBUG_ENABLE
+        DEBUG_PRINT(DEBUG_LEVEL_INFO,
+            INIT_TYPE_FUNC_DBG(void *, get_element_a)
+                TYPE_DATA_DBG(ArrayList *, "self = %p")
+                TYPE_DATA_DBG(position, "index = %zu")
+            END_TYPE_FUNC_DBG,
+            self, index);
+    #endif
+
+    /*
+     *  
+     *  get_element_a(self, index): Devuelve un elemento del ArrayList.
+     *  Recibe como parámetros un puntero al ArrayList (self) y el índice del
+     *  elemento que se desea obtener (index).
+     *  
+     *  Si el índice está fuera de los límites, la función devuelve NULL.
+     * 
+     */
+
+    // Validar el puntero del ArrayList y los límites del índice
+    if (!self || index >= self->Size) {
+        #ifdef DEBUG_ENABLE
+            DEBUG_PRINT(DEBUG_LEVEL_WARNING,
+                "#{FG:red}[#{FG:yellow}get_element_a#{FG:red}] #{FG:lred}Índice fuera de límites o ArrayList inválido#{FG:white}.\n");
+        #endif
+        return NULL; // Índice inválido o ArrayList nulo
+    }
+
+    // Devuelve el elemento en el índice solicitado
+    return self->Array[index];
+}
+
+
 void *front(ArrayList *self){
     #ifdef DEBUG_ENABLE
         DEBUG_PRINT(DEBUG_LEVEL_INFO,
@@ -181,10 +215,10 @@ void *Destroy(ArrayList *self){
     return NULL;
 }
 
-void forEach(ArrayList *self){
+void forEachOld(ArrayList *self){
     #ifdef DEBUG_ENABLE
         DEBUG_PRINT(DEBUG_LEVEL_INFO,
-            INIT_TYPE_FUNC_DBG(void , forEach)
+            INIT_TYPE_FUNC_DBG(void , forEachOld)
                 TYPE_DATA_DBG(ArrayList *, "self = %p")
             END_TYPE_FUNC_DBG,
             self);
@@ -195,12 +229,46 @@ void forEach(ArrayList *self){
      *  del arreglo, mostrando cada elemento y su posicion.
      * 
      */
-    if(!self && !self->Size) return;
+    if(!self && !self->Size) {
+        #ifdef DEBUG_ENABLE
+            DEBUG_PRINT(DEBUG_LEVEL_WARNING,
+                "forEach(): El puntero 'self' es NULL o el tamaño es 0.");
+        #endif
+        return;
+    }
     printf_color("Vector info\n\n");
     for (position i = 0; i < self->Size; i++){
         printf_color("\t #{FG:lred}%ld#{FG:lwhite}. #{FG:lcyan}%zu\n", i , get_val(size_t, self->Array[i]));
     }
     printf_color("\n-----\n");
+}
+
+void forEachNew(ArrayList *self, void (*func)(void *)){
+    #ifdef DEBUG_ENABLE
+        DEBUG_PRINT(DEBUG_LEVEL_INFO,
+            INIT_TYPE_FUNC_DBG(void , forEachNew)
+                TYPE_DATA_DBG(ArrayList *, "self = %p")
+                TYPE_DATA_DBG(void (*)(void *), "func = %p")
+            END_TYPE_FUNC_DBG,
+            func);
+    #endif
+    /*
+     *  
+     *  forEach(self): Imprime por pantalla la informacion 
+     *  del arreglo, mostrando cada elemento y su posicion.
+     * 
+     */
+    if(!self && !self->Size) {
+        #ifdef DEBUG_ENABLE
+            DEBUG_PRINT(DEBUG_LEVEL_WARNING,
+                "forEach(): El puntero 'self' es NULL o el tamaño es 0.");
+        #endif
+        return;
+    }
+
+    for (position i = 0; i < self->Size; i++){
+        func(self->Array[i]);
+    }
 }
 
 #endif
