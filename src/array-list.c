@@ -35,6 +35,50 @@ ArrayList *createArrayList(position _size, void * _value){
     return self;
 }
 
+/*
+ * Librea la memoria de una estructura ArrayList junto a su array dinamico. El programador debe liberar los
+ * elementos internos del array por su cuentas, antes de liberar la memoria de este array.
+ */
+void freeArrayList_struct(ArrayList **self) {
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+    INIT_TYPE_FUNC_DBG(void, freeArrayList)
+        TYPE_DATA_DBG(ArrayList **, "self = %p")
+    END_TYPE_FUNC_DBG,
+    self);
+    if (self == NULL || *self == NULL) return;
+    ArrayList *self_ = *self;
+
+    if(self_->Array != NULL) free(self_->Array); // liberar la memoria del array dinamico
+    free(self_); // liberar la memoria del objeto ArrayList
+
+    *self = NULL; // no dejar puntero colgante
+}
+
+/*
+ * Permite liberar la memoria de una estructura ArrayList, su array dinamico y todos sus elementos internos.
+ * usando una función de liberación personalizada para cada elemento interno.
+ */
+void freeArrayListAndElements(ArrayList **self, void (*free_func)(void *)) {
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+    INIT_TYPE_FUNC_DBG(void, freeArrayListAndElements)
+        TYPE_DATA_DBG(ArrayList **, "self = %p")
+        TYPE_DATA_DBG(void (*)(void *), "free_func = %p")
+    END_TYPE_FUNC_DBG,
+    self, free_func);
+    if (free_func == NULL) return;
+    if (self == NULL || *self == NULL) return;
+    ArrayList *self_ = *self;
+
+    for (register size_t i = 0; i < self_->Size; i++) {
+        free_func(self_->Array[i]); // liberar la memoria del elemento interno
+    }
+
+    if(self_->Array != NULL) free(self_->Array); // liberar la memoria del array dinamico
+    free(self_); // liberar la memoria del objeto ArrayList
+
+    *self = NULL; // no dejar puntero colgante
+}
+
 void push_back_a(ArrayList *self, void * _data){
     DEBUG_PRINT(DEBUG_LEVEL_INFO,
         INIT_TYPE_FUNC_DBG(ArrayList *, createArrayList)

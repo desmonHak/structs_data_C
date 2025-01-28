@@ -168,6 +168,12 @@ void *front(ArrayList *self);
  */
 void *Destroy(ArrayList *self);
 
+// liberar la estructura y su array dinamico
+void freeArrayList_struct(ArrayList **self);
+
+// liberar la estructura, su array dinamico y los elementos internos
+void freeArrayListAndElements(ArrayList **self, void (*free_func)(void *));
+
 /*
  *  
  *  forEach(self): Imprime por pantalla la informacion 
@@ -185,6 +191,10 @@ void* get_element_a(ArrayList *self, position index);
 #endif
 #ifndef forEach
 #define forEach(...) GET_MACRO(__VA_ARGS__, forEachNew, forEachOld)(__VA_ARGS__)
+#endif
+
+#ifndef freeArrayList
+#define freeArrayList(...) GET_MACRO(__VA_ARGS__, freeArrayListAndElements, freeArrayList_struct)(__VA_ARGS__)
 #endif
 
 #ifndef __ADD_CAPACITY__
