@@ -9,12 +9,17 @@ generate_lib_debug: libdebug.a $(TARGET)_debug.a
 all: generate_lib
 	$(MAKE) -C . -f $(MAKE_NAME) examples
 
-examples: generate_lib
-	$(CC) examples/code_array-list.c    		 $(CFLAGS_EXAMPLES)   -o examples/code_array-list.$(EXTENSION)
-	$(CC) examples/code_hash-table.c    		 $(CFLAGS_EXAMPLES)   -o examples/code_hash-table.$(EXTENSION)
-	$(CC) examples/code_matriz-list.c   		 $(CFLAGS_EXAMPLES)   -o examples/code_matriz-list.$(EXTENSION)
-	$(CC) examples/code_vector-list.c   		 $(CFLAGS_EXAMPLES)   -o examples/code_vector-list.$(EXTENSION)
-	$(CC) examples/code-array-list_vector-list.c $(CFLAGS_EXAMPLES)	-o examples/code-array-list_vector-list.$(EXTENSION)
+TESTS = code_array-list code_hash-table code_matriz-list code_vector-list \
+		code_array-list_vector-list code_ast  
+
+# Regla principal que genera todos los tests
+examples: $(addprefix $(PATH_EXAMPLES)/, $(addsuffix .$(EXTENSION), $(TESTS)))
+	@echo "generando tests... $^"
+
+# Regla patrón: compila cada test a partir de su fuente .c
+$(PATH_EXAMPLES)/%.$(EXTENSION): $(PATH_EXAMPLES)/%.c
+	$(CC) $< $(CFLAGS_EXAMPLES) -o $@ 
+
 
 libdebug.a:
 	echo "generando librerias estatica... $@"
@@ -41,6 +46,9 @@ matriz-list.o: $(PATH_SRC)/matriz-list.c
 vector-list.o: $(PATH_SRC)/vector-list.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
+ast.o: $(PATH_SRC)/ast.c
+	$(CC) $(CFLAGS) -c $^ -o $@
+
 hash-table_debug.o: $(PATH_SRC)/hash-table.c
 	$(CC) $(CFLAGS_DEBUG) -c $^ -o $@
 
@@ -51,6 +59,9 @@ matriz-list_debug.o: $(PATH_SRC)/matriz-list.c
 	$(CC) $(CFLAGS_DEBUG) -c $^ -o $@
 
 vector-list_debug.o: $(PATH_SRC)/vector-list.c
+	$(CC) $(CFLAGS_DEBUG) -c $^ -o $@
+
+ast_debug.o: $(PATH_SRC)/ast.c
 	$(CC) $(CFLAGS_DEBUG) -c $^ -o $@
 
 cleanobj:

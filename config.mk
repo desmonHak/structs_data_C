@@ -5,7 +5,7 @@ VESRION_C     = 11
 
 PATH_SRC 	      = src
 PATH_INCLUDE      = include
-PATH_EXAMPLES	  = example
+PATH_EXAMPLES	  = examples
 PATH_DEBUG 		  = DebugLibC
 PATH_COLORS		  = $(PATH_DEBUG)/colors-C-C-plus-plus
 
@@ -28,5 +28,5 @@ ARR_FLAGS     = -rc
 
 CFLAGS_EXAMPLES = $(CFLAGS) -x c  -time  -save-temps -g -D DEBUG_ENABLE $(LINKER_FLAGS)
 
-OBJECTS 	  = array-list.o hash-table.o matriz-list.o vector-list.o
-OBJECTS_DEBUG = array-list_debug.o hash-table_debug.o matriz-list_debug.o vector-list_debug.o
+OBJECTS 	  = array-list.o hash-table.o matriz-list.o vector-list.o ast.o
+OBJECTS_DEBUG = array-list_debug.o hash-table_debug.o matriz-list_debug.o vector-list_debug.o ast_debug.o

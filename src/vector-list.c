@@ -468,7 +468,7 @@ size_t size_v(LinkedList *list) {
     return count;
 }
 
-printLinkedList(LinkedList *list) {
+void printLinkedList(LinkedList *list) {
     if (list == NULL) {
         DEBUG_PRINT(DEBUG_LEVEL_INFO, "#{FG:red}[#{FG:yellow}printLinkedList#{FG:red}] #{FG:white} La lista es nula. \n");
         return;
