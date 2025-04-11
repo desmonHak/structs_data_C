@@ -62,6 +62,21 @@ void postorder_ast(ast_t* node, void (*op)(ast_t*));
 void preorder_ast(ast_t* node, void (*op)(ast_t*));
 void print_ast_normal_order(ast_t* ast);
 void print_ast_ascii(ast_t* node, char* prefix, int is_last);
+void print_ast(
+    ast_t* ast, 
+    void (*traversal_func)(
+        ast_t*, 
+        void (*op)(
+            ast_t*, 
+            int, 
+            char*, 
+            int
+        ), 
+        int, 
+        char*, 
+        int
+    )
+);
 void inorder_ast_with_ascii(
     ast_t* node, 
     void (*op)(ast_t*, int, char*, int), 
@@ -82,6 +97,11 @@ void preorder_ast_with_ascii(
     int depth, 
     char* prefix, 
     int is_last
+);
+ast_t* search_node_by_route(
+    const char* path, 
+    ast_t* root, 
+    char* (*how_get_str)(ast_t*)
 );
 
 #endif

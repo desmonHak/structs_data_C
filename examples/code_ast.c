@@ -38,7 +38,11 @@ void print_data_node(ast_t* node) {
     }
     printf("node %s\n", node->data);
 }
-
+char* get_node_name(ast_t* node) {
+    if (node && node->data)
+        return (char*)node->data;
+    return NULL;
+}
 int main() {
     #ifdef _WIN32
         #include <windows.h>
@@ -72,6 +76,17 @@ int main() {
     printf("Recorrido Preorder del AST:\n");
     print_ast(root, preorder_ast_with_ascii);
     preorder_ast(root, print_data_node);
+
+
+    
+    // Buscar un nodo por ruta
+    ast_t* found_node = search_node_by_route("root/child1/child1.1", root, get_node_name);
+    // Imprimir el resultado
+    if (found_node != NULL) {
+        printf("Found node: %s\n", get_node_name(found_node));
+    } else {
+        printf("Node not found\n");
+    }
 
 
     free_ast_t(root, NULL);

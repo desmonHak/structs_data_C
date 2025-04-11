@@ -213,6 +213,7 @@ void print_ast_ascii(ast_t* node, char* prefix, int is_last) {
     }
 }
 
+
 /**
  * @brief Wrapper para imprimir un árbol AST completo con arte ASCII.
  * 
@@ -367,6 +368,81 @@ void print_ast(ast_t* ast, void (*traversal_func)(ast_t*, void (*op)(ast_t*, int
 }
 
 
+/**
+ * @brief Busca un nodo en el árbol AST por una ruta dada.
+ * 
+ * @param path Ruta del nodo a buscar (ej: "hola/que/tal").
+ * @param root Nodo raíz del árbol.
+ * @param how_get_str Función para obtener el string de un nodo.
+ * @return ast_t* Puntero al nodo encontrado, o NULL si no se encuentra.
+ */
+/**
+ * @brief Busca un nodo en el árbol AST por una ruta dada.
+ * 
+ * @param path Ruta del nodo a buscar (ej: "root/child1/child1.1").
+ * @param root Nodo raíz del árbol.
+ * @param how_get_str Función para obtener el string de un nodo.
+ * @return ast_t* Puntero al nodo encontrado, o NULL si no se encuentra.
+ */
+ast_t* search_node_by_route(
+    const char* path, 
+    ast_t* root, 
+    char* (*how_get_str)(ast_t*)
+) {
+    if (path == NULL || root == NULL || how_get_str == NULL) {
+        return NULL;
+    }
+
+    // Duplicar la ruta para poder modificarla con strtok
+    char *path_copy = strdup(path);
+    if (path_copy == NULL) {
+        perror("Failed to allocate memory for path copy");
+        return NULL;
+    }
+
+    // Obtener el primer token (componente de la ruta)
+    char *token = strtok(path_copy, "/");
+    ast_t* current_node = root;
+
+    // Comprobar si el primer token coincide con el nombre del nodo raíz
+    if (token == NULL || strcmp(token, how_get_str(root)) != 0) {
+        free(path_copy);
+        return NULL;
+    }
+
+    // Recorrer la ruta, comenzando desde el segundo token
+    token = strtok(NULL, "/");
+    while (token != NULL && current_node != NULL) {
+        int found = 0;
+        // Recorrer las ramas del nodo actual
+        for (size_t i = 0; i < size_a(current_node->ramas); i++) {
+            ast_t* child = (ast_t*)get_element_a(current_node->ramas, i);
+            
+            // Comparar el nombre del nodo hijo con el token actual
+            if (strcmp(token, how_get_str(child)) == 0) {
+                current_node = child;
+                found = 1;
+                break;
+            }
+        }
+
+        // Si no se encuentra el token en las ramas, la ruta es inválida
+        if (!found) {
+            free(path_copy);
+            return NULL;
+        }
+
+        // Obtener el siguiente token
+        token = strtok(NULL, "/");
+    }
+
+    // Liberar la copia de la ruta
+    free(path_copy);
+
+    // Si `token` es NULL, significa que hemos recorrido toda la ruta
+    // y el nodo actual es el que buscábamos
+    return current_node;
+}
 
 
 #endif
