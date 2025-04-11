@@ -110,7 +110,30 @@ void free_ast_t(ast_t* ast, void (*free_f)(void*)) {
 }
 
 
+/**
+ * @brief Recorre un árbol AST en preorden (nodo padre primero, luego hijos) aplicando una función callback.
+ *
+ * La estrategia consiste en aplicar la operación sobre el dato del nodo actual,
+ * y luego recorrer todas las ramas del nodo.
+ *
+ * @param node Nodo raíz del árbol/subárbol a recorrer.
+ * @param op Función callback a aplicar en cada nodo durante el recorrido.
+ */
+void preorder_ast(ast_t* node, void (*op)(ast_t*)) {
+    if (node == NULL || op == NULL) return;
 
+    // Aplicar la operación al nodo actual
+    op(node);
+
+    // Recorrer todas las ramas (hijos)
+    size_t num_ramas = size_a(node->ramas);
+    for (size_t i = 0; i < num_ramas; i++) {
+        ast_t* child = (ast_t*)get_element_a(node->ramas, i);
+
+        // Llamada recursiva para procesar los hijos
+        preorder_ast(child, op);
+    }
+}
 
 /**
  * @brief Recorre en inorden un árbol AST (n-ario) aplicando la función op a cada dato.
@@ -164,6 +187,186 @@ ast_t* add_child(ast_t* parent, void* data) {
     push_back_a(parent->ramas, child);
     return child;
 }
+
+/**
+ * @brief Imprime un árbol AST utilizando arte ASCII para representar la estructura.
+ * 
+ * @param node Nodo raíz del árbol/subárbol a imprimir.
+ * @param prefix Prefijo utilizado para construir la estructura ASCII.
+ * @param is_last Indica si el nodo actual es el último hijo.
+ */
+void print_ast_ascii(ast_t* node, char* prefix, int is_last) {
+    if (node == NULL) return;
+
+    // Imprimir el nodo actual con arte ASCII
+    printf("%s%s%s\n", prefix, is_last ? "└── " : "├── ", (char*)node->data);
+
+    // Actualizar el prefijo para los hijos
+    char new_prefix[256];
+    snprintf(new_prefix, sizeof(new_prefix), "%s%s", prefix, is_last ? "    " : "│   ");
+
+    // Recorrer las ramas (hijos) del nodo actual
+    size_t num_ramas = size_a(node->ramas);
+    for (size_t i = 0; i < num_ramas; i++) {
+        ast_t* child = (ast_t*)get_element_a(node->ramas, i);
+        print_ast_ascii(child, new_prefix, i == num_ramas - 1);
+    }
+}
+
+/**
+ * @brief Wrapper para imprimir un árbol AST completo con arte ASCII.
+ * 
+ * @param ast Árbol AST a imprimir.
+ */
+void print_ast_normal_order(ast_t* ast) {
+    if (ast == NULL) {
+        printf("Error: AST is empty\n");
+        return;
+    }
+
+    printf("AST Structure:\n");
+    print_ast_ascii(ast, "", 1);
+}
+
+
+/**
+ * @brief Recorre un árbol AST en inorden (n-ario) aplicando una función callback.
+ *
+ * La estrategia consiste en recorrer primero la mitad de las ramas del nodo,
+ * luego aplicar la operación sobre el dato del nodo actual, y finalmente
+ * recorrer el resto de las ramas.
+ *
+ * @param node Nodo raíz del árbol/subárbol a recorrer.
+ * @param op Función callback a aplicar en cada nodo durante el recorrido.
+ * @param depth Profundidad actual del nodo (para arte ASCII).
+ * @param prefix Prefijo utilizado para construir la estructura ASCII.
+ * @param is_last Indica si el nodo actual es el último hijo.
+ */
+void inorder_ast_with_ascii(ast_t* node, void (*op)(ast_t*, int, char*, int), int depth, char* prefix, int is_last) {
+    if (node == NULL || op == NULL) return;
+
+    // Obtener número de ramas
+    size_t num_ramas = size_a(node->ramas);
+    size_t mid = num_ramas / 2;
+
+    // Recorrer la primera mitad de las ramas
+    for (size_t i = 0; i < mid; i++) {
+        ast_t* child = (ast_t*)get_element_a(node->ramas, i);
+
+        // Actualizar el prefijo para los hijos
+        char new_prefix[256];
+        snprintf(new_prefix, sizeof(new_prefix), "%s%s", prefix, is_last ? "    " : "│   ");
+
+        inorder_ast_with_ascii(child, op, depth + 1, new_prefix, i == num_ramas - 1);
+    }
+
+    // Aplicar la operación al nodo actual
+    op(node, depth, prefix, is_last);
+
+    // Recorrer la segunda mitad de las ramas
+    for (size_t i = mid; i < num_ramas; i++) {
+        ast_t* child = (ast_t*)get_element_a(node->ramas, i);
+
+        // Actualizar el prefijo para los hijos
+        char new_prefix[256];
+        snprintf(new_prefix, sizeof(new_prefix), "%s%s", prefix, is_last ? "    " : "│   ");
+
+        inorder_ast_with_ascii(child, op, depth + 1, new_prefix, i == num_ramas - 1);
+    }
+}
+
+/**
+ * @brief Recorre un árbol AST en postorden (n-ario) aplicando una función callback.
+ *
+ * La estrategia consiste en recorrer primero todas las ramas del nodo,
+ * y luego aplicar la operación sobre el dato del nodo actual.
+ *
+ * @param node Nodo raíz del árbol/subárbol a recorrer.
+ * @param op Función callback a aplicar en cada nodo durante el recorrido.
+ * @param depth Profundidad actual del nodo (para arte ASCII).
+ * @param prefix Prefijo utilizado para construir la estructura ASCII.
+ * @param is_last Indica si el nodo actual es el último hijo.
+ */
+void postorder_ast_with_ascii(ast_t* node, void (*op)(ast_t*, int, char*, int), int depth, char* prefix, int is_last) {
+    if (node == NULL || op == NULL) return;
+
+    // Recorrer todas las ramas (hijos)
+    size_t num_ramas = size_a(node->ramas);
+    for (size_t i = 0; i < num_ramas; i++) {
+        ast_t* child = (ast_t*)get_element_a(node->ramas, i);
+
+        // Actualizar el prefijo para los hijos
+        char new_prefix[256];
+        snprintf(new_prefix, sizeof(new_prefix), "%s%s", prefix, is_last ? "    " : "│   ");
+
+        // Llamada recursiva para procesar los hijos
+        postorder_ast_with_ascii(child, op, depth + 1, new_prefix, i == num_ramas - 1);
+    }
+
+    // Aplicar la operación al nodo actual después de procesar los hijos
+    op(node, depth, prefix, is_last);
+}
+
+/**
+ * @brief Recorre un árbol AST en preorden (n-ario) aplicando una función callback.
+ *
+ * La estrategia consiste en aplicar la operación sobre el dato del nodo actual,
+ * y luego recorrer todas las ramas del nodo.
+ *
+ * @param node Nodo raíz del árbol/subárbol a recorrer.
+ * @param op Función callback a aplicar en cada nodo durante el recorrido.
+ * @param depth Profundidad actual del nodo (para arte ASCII).
+ * @param prefix Prefijo utilizado para construir la estructura ASCII.
+ * @param is_last Indica si el nodo actual es el último hijo.
+ */
+void preorder_ast_with_ascii(ast_t* node, void (*op)(ast_t*, int, char*, int), int depth, char* prefix, int is_last) {
+    if (node == NULL || op == NULL) return;
+
+    // Aplicar la operación al nodo actual
+    op(node, depth, prefix, is_last);
+
+    // Recorrer todas las ramas (hijos)
+    size_t num_ramas = size_a(node->ramas);
+    for (size_t i = 0; i < num_ramas; i++) {
+        ast_t* child = (ast_t*)get_element_a(node->ramas, i);
+
+        // Calcular el nuevo prefijo para los hijos
+        char new_prefix[256];
+        snprintf(new_prefix, sizeof(new_prefix), "%s%s", prefix, is_last ? "    " : "│   ");
+
+        // Llamada recursiva para procesar los hijos
+        preorder_ast_with_ascii(child, op, depth + 1, new_prefix, i == num_ramas - 1);
+    }
+}
+
+
+/**
+ * @brief Imprime un árbol AST utilizando arte ASCII con un recorrido personalizado.
+ * 
+ * Permite especificar una función de recorrido (postorden, inorden, etc.)
+ * para personalizar el orden en que los nodos son visitados.
+ * 
+ * @param ast Árbol AST a imprimir.
+ * @param traversal_func Función de recorrido a aplicar (postorder_ast, inorder_ast, etc.).
+ */
+void print_ast(ast_t* ast, void (*traversal_func)(ast_t*, void (*op)(ast_t*, int, char*, int), int, char*, int)) {
+    if (ast == NULL) {
+        printf("Error: AST is empty\n");
+        return;
+    }
+
+    printf("AST Structure:\n");
+
+    // Función interna para imprimir un nodo con formato ASCII
+    void print_node(ast_t* node, int depth, char* prefix, int is_last) {
+        printf("%s%s%s\n", prefix, is_last ? "└── " : "├── ", (char*)node->data);
+    }
+
+    // Llamar a la función de recorrido con la función interna
+    traversal_func(ast, print_node, 0, "", 1);
+}
+
+
 
 
 #endif

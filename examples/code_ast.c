@@ -40,7 +40,11 @@ void print_data_node(ast_t* node) {
 }
 
 int main() {
-
+    #ifdef _WIN32
+        #include <windows.h>
+        SetConsoleOutputCP(CP_UTF8);
+        SetConsoleCP(CP_UTF8);
+    #endif
     // Crear el nodo raíz
     ast_t* root = create_ast_t("root");
 
@@ -55,13 +59,21 @@ int main() {
 
     add_child(child2, "child2.1");
 
-    // Recorrer el árbol en inorden e imprimir cada nodo
-    printf("Recorrido Inorden del AST:\n");
-    inorder_ast(root, print_data_node);
+    print_ast_normal_order(root);
 
+    printf("Recorrido Postorder del AST:\n");
+    print_ast(root, postorder_ast_with_ascii);
     postorder_ast(root, print_data_node);
 
-    puts("a");
+    printf("Recorrido Inorden del AST:\n");
+    print_ast(root, inorder_ast_with_ascii);
+    inorder_ast(root, print_data_node);
+
+    printf("Recorrido Preorder del AST:\n");
+    print_ast(root, preorder_ast_with_ascii);
+    preorder_ast(root, print_data_node);
+
+
     free_ast_t(root, NULL);
 
     puts("Exit...");

@@ -55,9 +55,33 @@ typedef struct ast_node_t {
 ast_t* create_ast_t(void *data);
 ast_node_t* create_ast_node_t(void *data);
 ast_t* clone_ast(ast_t* node);
+ast_t* add_child(ast_t* parent, void* data);
 void free_ast_t(ast_t* ast, void (*free_f)(void*));
 void inorder_ast(ast_t *node, void (*op)(ast_t *));
-void postorder_ast(ast_t *node, void (*op)(ast_t *));
-ast_t* add_child(ast_t* parent, void* data);
+void postorder_ast(ast_t* node, void (*op)(ast_t*));
+void preorder_ast(ast_t* node, void (*op)(ast_t*));
+void print_ast_normal_order(ast_t* ast);
+void print_ast_ascii(ast_t* node, char* prefix, int is_last);
+void inorder_ast_with_ascii(
+    ast_t* node, 
+    void (*op)(ast_t*, int, char*, int), 
+    int depth, 
+    char* prefix, 
+    int is_last
+);
+void postorder_ast_with_ascii(
+    ast_t* node, 
+    void (*op)(ast_t*, int, char*, int), 
+    int depth, 
+    char* prefix, 
+    int is_last
+);
+void preorder_ast_with_ascii(
+    ast_t* node, 
+    void (*op)(ast_t*, int, char*, int), 
+    int depth, 
+    char* prefix, 
+    int is_last
+);
 
 #endif
