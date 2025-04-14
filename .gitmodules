@@ -7,3 +7,6 @@
     path = DebugLibC/colors-C-C-plus-plus
     url = https://github.com/desmonHak/colors-C-C-plus-plus.git
     branch = main
+[submodule "CIterators"]
+	path = CIterators
+	url = https://github.com/desmonHak/CIterators.git
