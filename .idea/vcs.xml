@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/CIterators" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/DebugLibC" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/DebugLibC/colors-C-C-plus-plus" vcs="Git" />
+  </component>
+</project>
