@@ -41,7 +41,7 @@ void print_data_node(const ast_t* node) {
 char* get_node_name(const ast_t* node) {
     if (node && node->data)
         return (char*)node->data;
-    return NULL;
+    return nullptr;
 }
 int main() {
     #ifdef _WIN32
@@ -89,8 +89,17 @@ int main() {
         printf("Node not found\n");
     }
 
+    //freeArrayList(&(child1->ramas));
+    //freeArrayList(&(child2->ramas));
+    //freeArrayList(&(child3->ramas));
 
-    free_ast_t(root, NULL);
+    //free(child1);
+    //free(child2);
+    //free(child3);
+
+    free_ast_t(root, nullptr);
+
+
 
     puts("Exit...");
     return 0;

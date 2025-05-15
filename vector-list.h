@@ -88,7 +88,7 @@ typedef struct
 #   endif
 #endif
 
-static IS_USED LinkedList *table_matriz_ = NULL;
+
 
 // Declaración de funciones de inicialización y finalización
 void

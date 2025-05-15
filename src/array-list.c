@@ -34,6 +34,8 @@
 #define __ARRAY_LIST_C__
 #include "array-list.h"
 
+#include "vector-list.h"
+
 ArrayList *createArrayList(position _size, void * _value){
     DEBUG_PRINT(DEBUG_LEVEL_INFO,
         INIT_TYPE_FUNC_DBG(ArrayList *, createArrayList)
@@ -269,7 +271,7 @@ void *Destroy(ArrayList *self){
     if (self){
         free(self->Array);
         self->Array = NULL;
-
+        
         return self->Array;
     }
     return NULL;

@@ -34,6 +34,7 @@
 #define __VECTOR_LIST_C__
 
 #include "vector-list.h"
+static IS_USED LinkedList *table_matriz_ = nullptr;
 
 void
 #ifndef _MSC_VER
@@ -60,7 +61,7 @@ __destructor_array_dinamic__() {
     free_all_vector();
     // Free the table_matriz_ structure itself, but NOT the nodes or data they point to.
     free(table_matriz_);
-    table_matriz_ = NULL; // prevent use after free
+    table_matriz_ = nullptr; // prevent use after free
 #ifdef __VECTOR_LIST_DEBBUG__
     DEBUG_PRINT(DEBUG_LEVEL_INFO, "#{FG:red}[#{FG:yellow}__destructor_array_dinamic__#{FG:red}] #{FG:white} Tabla de vectores liberada exitosamente. \n");
 #endif
@@ -486,12 +487,21 @@ void printLinkedList(const LinkedList *list) {
     DEBUG_PRINT(DEBUG_LEVEL_INFO, "]#{FG:white}\n");
 }
 
-
+/**
+ *
+ * @param list Lista a eliminar con los nodos asociados, los objetos contenidos en estos no son liberados,
+ * debe hacerlo el programador.
+ * La funcion eliminara el vector `list` recibido de la tabla de registro de vectores. Este vector permite
+ * auto liberar la memoria del programa al final del programa o liberar todos los vectores en cierto punto determinado.
+ * Al liberar un vector es necesario eliminarlo de esta tabla para no realizar una doble liberacion (double free).
+ */
 void freeLinkedList(LinkedList *list) {
     if (list == NULL) return;
 
     Node *current = list->head;
-    Node *next = NULL;
+    Node *next = nullptr;
+
+
 
     while (current != NULL) {
         next = current->next;
@@ -499,8 +509,22 @@ void freeLinkedList(LinkedList *list) {
         current = next;
     }
 
-    list->head = NULL;
+    list->head = nullptr;
     list->lastId = 0;
+
+    current = table_matriz_->head;
+    while (current != NULL)
+    {
+        // recorrer la tabla de vectores en busca del dato(el vector a eliminar).
+        if (current->data == list)
+        {
+            // si se encontro la lista a librerar en la lista de registro, indicar que sera NULL
+            // y se debera liberar la memoria de este
+            free(current->data); // liberar la memoria del vector.
+            current->data = NULL;
+        }
+        current = current->next;
+    }
 
 }
 

@@ -64,7 +64,7 @@ void postorder_ast(const ast_t* node, void (*op)(const ast_t*)) {
  * @return ast_t* copia de ast.
  */
 ast_t* clone_ast(ast_t* node) {
-    if (node == NULL) return NULL;
+    if (node == NULL) return nullptr;
 
     ast_node_t* newNode = create_ast_node_t(node->data);
     for (size_t i = 0; i < size_a(node->ramas); i++) {
@@ -76,7 +76,7 @@ ast_t* clone_ast(ast_t* node) {
 }
 
 // Variable estática para pasar free_f al callback (no thread-safe)
-static void (*current_free)(void*) = NULL;
+static void (*current_free)(void*) = nullptr;
 
 // Función interna para liberar cada nodo en postorden
 void postorder_free(ast_t* node) {
@@ -105,7 +105,7 @@ void free_ast_t(const ast_t* ast, void (*free_f)(void*)) {
     // Recorrer el árbol en postorden aplicando la liberación
     postorder_ast(ast, (void (*)(const ast_t*))postorder_free);
     
-    current_free = NULL; // Resetear para siguiente uso
+    current_free = nullptr; // Resetear para siguiente uso
 }
 
 
@@ -178,10 +178,9 @@ void inorder_ast(const ast_t *node, void (*op)(const ast_t *))
  * @return ast_t* Puntero al nuevo nodo hijo creado, o NULL si ocurre un error.
  */
 ast_t* add_child(ast_t* parent, void* data) {
-    if (parent == NULL) return NULL;
+    if (parent == NULL) return nullptr;
 
     ast_t* child = create_ast_node_t(data);
-    if (child == NULL) return NULL;
 
     push_back_a(parent->ramas, child);
     return child;
@@ -390,14 +389,14 @@ ast_t* search_node_by_route(
     char* (*how_get_str)(ast_t*)
 ) {
     if (path == NULL || root == NULL || how_get_str == NULL) {
-        return NULL;
+        return nullptr;
     }
 
     // Duplicar la ruta para poder modificarla con strtok
     char *path_copy = strdup(path);
     if (path_copy == NULL) {
         perror("Failed to allocate memory for path copy");
-        return NULL;
+        return nullptr;
     }
 
     // Obtener el primer token (componente de la ruta)
@@ -411,7 +410,7 @@ ast_t* search_node_by_route(
     }
 
     // Recorrer la ruta, comenzando desde el segundo token
-    token = strtok(NULL, "/");
+    token = strtok(nullptr, "/");
     while (token != NULL && current_node != NULL) {
         int found = 0;
         // Recorrer las ramas del nodo actual
@@ -429,11 +428,11 @@ ast_t* search_node_by_route(
         // Si no se encuentra el token en las ramas, la ruta es inválida
         if (!found) {
             free(path_copy);
-            return NULL;
+            return nullptr;
         }
 
         // Obtener el siguiente token
-        token = strtok(NULL, "/");
+        token = strtok(nullptr, "/");
     }
 
     // Liberar la copia de la ruta
