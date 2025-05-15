@@ -1,7 +1,16 @@
-cmake_minimum_required(VERSION 3.31)
+cmake_minimum_required(VERSION 3.28)
 project(structs_data_C C)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD 23)
+
+# Permitir establecer modo Debug o Release
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
+endif()
+
+# Configuraciones específicas por tipo de compilación
+set(CMAKE_C_FLAGS_DEBUG "-g -O0 -Wall -Wpedantic -D_ExceptionHandler")
+set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG -D_ExceptionHandler")
 
 include_directories(.)
 include_directories(CIterators)
@@ -38,6 +47,7 @@ add_executable(code_array-list_vector-list
         matriz-list.h
         vector-list.h
         examples/code_array-list_vector-list.c)
+target_link_libraries(code_array-list_vector-list m)
 
 
 # examples/code_ast.c
@@ -66,7 +76,7 @@ add_executable(code_ast
         matriz-list.h
         vector-list.h
         examples/code_ast.c)
-
+target_link_libraries(code_ast m)
 
 # examples/code_hash-table.c
 
@@ -94,7 +104,7 @@ add_executable(code_hash-table
         matriz-list.h
         vector-list.h
         examples/code_hash-table.c)
-
+target_link_libraries(code_hash-table m)
 
 # examples/code_matriz-list.c
 
@@ -122,7 +132,7 @@ add_executable(code_matriz-list
         matriz-list.h
         vector-list.h
         examples/code_matriz-list.c)
-
+target_link_libraries(code_matriz-list m)
 
 # examples/code_vector-list.c
 add_executable(code_vector-list
@@ -149,6 +159,7 @@ add_executable(code_vector-list
         matriz-list.h
         vector-list.h
         examples/code_vector-list.c)
+target_link_libraries(code_vector-list m)
 
 # examples/code_array-list.c
 add_executable(code_array-list
@@ -175,3 +186,4 @@ add_executable(code_array-list
         matriz-list.h
         vector-list.h
         examples/code_array-list.c)
+target_link_libraries(code_array-list m)

@@ -35,18 +35,24 @@
 
 #include "vector-list.h"
 
-void __attribute__((constructor)) __constructor_array_dinamic__() {
+void
+#ifndef _MSC_VER
+__attribute__((constructor))
+#endif
+__constructor_array_dinamic__() {
     DEBUG_PRINT(DEBUG_LEVEL_INFO,
                 INIT_TYPE_FUNC_DBG(void __attribute__((constructor)), __constructor_array_dinamic__)
                     END_TYPE_FUNC_DBG);
 
-    debug_malloc(LinkedList, table_matriz_, sizeof(LinkedList));
-    table_matriz_->head = NULL;
-    table_matriz_->lastId = 0;
+    debug_calloc(LinkedList, table_matriz_, 1, sizeof(LinkedList));
 }
 
 #ifndef DISABLE__destructor_array_dinamic__
-void __attribute__((destructor)) __destructor_array_dinamic__() {
+void
+#ifndef _MSC_VER
+__attribute__((destructor))
+#endif
+__destructor_array_dinamic__() {
     DEBUG_PRINT(DEBUG_LEVEL_INFO,
                 INIT_TYPE_FUNC_DBG(void __attribute__((destructor)), __destructor_array_dinamic__)
                     END_TYPE_FUNC_DBG);
@@ -72,7 +78,7 @@ void free_all_vector() {
     if (table_matriz_ == NULL) return;
 
     Node *current = table_matriz_->head;
-    Node *next;
+    Node *next = NULL;
 
     while (current != NULL) {
         next = current->next; // Store the next pointer
@@ -104,7 +110,7 @@ Node *get_node(LinkedList *list, const position pos) {
                     END_TYPE_FUNC_DBG,
                 list, pos);
 
-    if (list == NULL || pos < 0) {
+    if (list == NULL /*|| pos < 0*/) {
         DEBUG_PRINT(DEBUG_LEVEL_INFO, "#{FG:red}[#{FG:yellow}get_node#{FG:red}] #{FG:white} Lista invalida o posicion invalida \n");
         return NULL;
     }
@@ -120,7 +126,7 @@ Node *get_node(LinkedList *list, const position pos) {
 }
 
 
-const position get_position(Node *node)
+position get_position(Node *node)
 {
         DEBUG_PRINT(DEBUG_LEVEL_INFO,
             INIT_TYPE_FUNC_DBG(const position , get_position)
@@ -137,9 +143,7 @@ LinkedList *createLinkedList() {
                     END_TYPE_FUNC_DBG);
 
     LinkedList *list;
-    debug_malloc(LinkedList, list, sizeof(LinkedList));
-    list->head = NULL;
-    list->lastId = 0;
+    debug_calloc(LinkedList, list, 1,sizeof(LinkedList));
 
     insertNode(table_matriz_, list);
 #ifdef __VECTOR_LIST_DEBBUG__
@@ -236,8 +240,6 @@ bool exists(LinkedList *list, Node *node) {
 
     Node *current = list->head;
     while (current != NULL) {
-        if (node == NULL)
-            break;
         if (current == node) {
             DEBUG_PRINT(DEBUG_LEVEL_INFO, "#{FG:lred} bool#{FG:cyan} exists#{FG:white}(#{FG:lyellow}LinkedList  #{FG:white}*list, #{FG:lyellow}Node #{FG:white}node) #{FG:lred}-> #{FG:lgreen}return #{FG:white}true\n");
             return true;
@@ -329,9 +331,8 @@ void updateIds(LinkedList *list) {
 }
 
 
-const position pop_back_v(LinkedList *list)
+position pop_back_v(LinkedList *list)
 {
-
         DEBUG_PRINT(DEBUG_LEVEL_INFO,
             INIT_TYPE_FUNC_DBG(const position , pop_back_v)
                 TYPE_DATA_DBG(LinkedList *, "list = %p")
@@ -349,7 +350,7 @@ const position pop_back_v(LinkedList *list)
     else if (list->head->next == NULL)
     {
         // Guardar el ID del único nodo
-        position id = list->head->id;
+        const position id = list->head->id;
         // Liberar el nodo
         free(list->head);
         // Establecer la cabeza de la lista como NULL
@@ -382,7 +383,7 @@ const position pop_back_v(LinkedList *list)
     }
 }
 
-const position push_back_v(LinkedList *list, void *data)
+position push_back_v(LinkedList *list, void *data)
 {
 
         DEBUG_PRINT(DEBUG_LEVEL_INFO,
@@ -430,7 +431,7 @@ const position push_back_v(LinkedList *list, void *data)
     return newNode->id;
 }
 
-bool empty(LinkedList *list) {
+bool empty(const LinkedList *list) {
     if (list == NULL) return true;
     return (list->head == NULL);
 }
@@ -457,7 +458,7 @@ void clear(LinkedList *list)
     list->lastId = 0; // Restablecer el valor de lastId a 0
 }
 
-size_t size_v(LinkedList *list) {
+position size_v(const LinkedList *list) {
     if (list == NULL) return 0;
     size_t count = 0;
     Node *current = list->head;
@@ -468,7 +469,7 @@ size_t size_v(LinkedList *list) {
     return count;
 }
 
-void printLinkedList(LinkedList *list) {
+void printLinkedList(const LinkedList *list) {
     if (list == NULL) {
         DEBUG_PRINT(DEBUG_LEVEL_INFO, "#{FG:red}[#{FG:yellow}printLinkedList#{FG:red}] #{FG:white} La lista es nula. \n");
         return;
@@ -490,7 +491,7 @@ void freeLinkedList(LinkedList *list) {
     if (list == NULL) return;
 
     Node *current = list->head;
-    Node *next;
+    Node *next = NULL;
 
     while (current != NULL) {
         next = current->next;
@@ -551,7 +552,7 @@ void *get_last(LinkedList *list)
     }
 }
 
-const position get_last_position(LinkedList *list)
+position get_last_position(LinkedList *list)
 {
 
         DEBUG_PRINT(DEBUG_LEVEL_INFO,
@@ -561,7 +562,7 @@ const position get_last_position(LinkedList *list)
             list);
 
     if (list == NULL) return 0;
-    Node *lastNode = get_last_node(list);
+    const Node *lastNode = get_last_node(list);
     if (lastNode != NULL)
     {
         DEBUG_PRINT(DEBUG_LEVEL_INFO, "#{FG:lred}const position #{FG:cyan}get_last#{FG:white}(#{FG:lyellow}LinkedList  #{FG:white}*list) #{FG:lred}-> #{FG:lgreen}return #{FG:white}%zu;\n", lastNode->id);

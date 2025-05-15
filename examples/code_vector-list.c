@@ -141,6 +141,8 @@ int main()
     exists(list,my_last_node);
     printf_color("last position: %zu\n", get_last_position(list));
     void *my_data = get_last(list);
+    printf("my_last_node->data = %p\n", my_data);
+
     deleteNode(list, my_last_node);
 
     deleteNodeID(list, 4);

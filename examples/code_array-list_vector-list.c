@@ -71,6 +71,15 @@ int main(){
     printf_color("size array-list: %zu\n", size(array));
 
     Destroy(array);
+    // free(list);
+    /* al liberar la lista, se volvera a la liberar de forma errada con la subrutina destructora
+    pues nunca se elimina de la tabla de destruccion, lo mismo pasa al usar freeLinkedList
+    */
+    free(array);
+
+
+    free(n1);
+    free(n2);
 
     return 0;
 }

@@ -38,14 +38,14 @@ ast_t* create_ast_t(void *data) {
  * @param node Nodo raíz del árbol/subárbol a recorrer
  * @param op Función callback a aplicar en cada nodo durante el recorrido
  */
-void postorder_ast(ast_t* node, void (*op)(ast_t*)) {
+void postorder_ast(const ast_t* node, void (*op)(const ast_t*)) {
     // Caso base: nodo nulo o función no proporcionada
     if (node == NULL || op == NULL) return;
     
     // Recorrer todas las ramas (hijos) del nodo actual
     for (size_t i = 0; i < size_a(node->ramas); i++) {
         // Obtener el hijo actual del ArrayList de ramas
-        ast_t* child = (ast_t*)get_element_a(node->ramas, i);
+        const ast_t* child = (ast_t*)get_element_a(node->ramas, i);
         
         // Llamada recursiva para procesar el subárbol del hijo
         postorder_ast(child, op);
@@ -75,7 +75,19 @@ ast_t* clone_ast(ast_t* node) {
     return newNode;
 }
 
+// Variable estática para pasar free_f al callback (no thread-safe)
+static void (*current_free)(void*) = NULL;
 
+// Función interna para liberar cada nodo en postorden
+void postorder_free(ast_t* node) {
+    // 1. Liberar datos del nodo si existe la función
+    if (current_free != NULL && node->data != NULL) {
+        current_free(node->data);
+    }
+
+    // 2. Finalmente liberar el nodo mismo
+    free(node);
+}
 /**
  * @brief Permite liberar un nodo con sus subnodos o todo un árbol.
  * 
@@ -85,26 +97,13 @@ ast_t* clone_ast(ast_t* node) {
  * @param ast Árbol o nodo a liberar.
  * @param free_f Función para liberar los datos contenidos en cada nodo.
  */
-void free_ast_t(ast_t* ast, void (*free_f)(void*)) {
+void free_ast_t(const ast_t* ast, void (*free_f)(void*)) {
     if (ast == NULL) return;
-    
     // Variable estática para pasar free_f al callback (no thread-safe)
-    static void (*current_free)(void*) = NULL;
     current_free = free_f;
-    
-    // Función interna para liberar cada nodo en postorden
-    void postorder_free(ast_t* node) {
-        // 1. Liberar datos del nodo si existe la función
-        if (current_free != NULL && node->data != NULL) {
-            current_free(node->data);
-        }
-        
-        // 2. Finalmente liberar el nodo mismo
-        free(node);
-    }
-    
+
     // Recorrer el árbol en postorden aplicando la liberación
-    postorder_ast(ast, postorder_free);
+    postorder_ast(ast, (void (*)(const ast_t*))postorder_free);
     
     current_free = NULL; // Resetear para siguiente uso
 }
@@ -119,7 +118,7 @@ void free_ast_t(ast_t* ast, void (*free_f)(void*)) {
  * @param node Nodo raíz del árbol/subárbol a recorrer.
  * @param op Función callback a aplicar en cada nodo durante el recorrido.
  */
-void preorder_ast(ast_t* node, void (*op)(ast_t*)) {
+void preorder_ast(const ast_t* node, void (*op)(const ast_t*)) {
     if (node == NULL || op == NULL) return;
 
     // Aplicar la operación al nodo actual
@@ -128,7 +127,7 @@ void preorder_ast(ast_t* node, void (*op)(ast_t*)) {
     // Recorrer todas las ramas (hijos)
     size_t num_ramas = size_a(node->ramas);
     for (size_t i = 0; i < num_ramas; i++) {
-        ast_t* child = (ast_t*)get_element_a(node->ramas, i);
+        const ast_t* child = (ast_t*)get_element_a(node->ramas, i);
 
         // Llamada recursiva para procesar los hijos
         preorder_ast(child, op);
@@ -145,7 +144,7 @@ void preorder_ast(ast_t* node, void (*op)(ast_t*)) {
  * @param node Puntero al nodo AST a recorrer.
  * @param op Función a aplicar a cada dato almacenado en el nodo.
  */
-void inorder_ast(ast_t *node, void (*op)(ast_t *))
+void inorder_ast(const ast_t *node, void (*op)(const ast_t *))
 {
     if (node == NULL || op == NULL)
         return;
@@ -341,6 +340,9 @@ void preorder_ast_with_ascii(ast_t* node, void (*op)(ast_t*, int, char*, int), i
 }
 
 
+static void print_node(ast_t* node, int depth, char* prefix, int is_last) {
+    printf("%s%s%s\n", prefix, is_last ? "└── " : "├── ", (char*)node->data);
+}
 /**
  * @brief Imprime un árbol AST utilizando arte ASCII con un recorrido personalizado.
  * 
@@ -359,9 +361,7 @@ void print_ast(ast_t* ast, void (*traversal_func)(ast_t*, void (*op)(ast_t*, int
     printf("AST Structure:\n");
 
     // Función interna para imprimir un nodo con formato ASCII
-    void print_node(ast_t* node, int depth, char* prefix, int is_last) {
-        printf("%s%s%s\n", prefix, is_last ? "└── " : "├── ", (char*)node->data);
-    }
+
 
     // Llamar a la función de recorrido con la función interna
     traversal_func(ast, print_node, 0, "", 1);

@@ -32,13 +32,13 @@
 
 #include "ast.h"
 
-void print_data_node(ast_t* node) {
+void print_data_node(const ast_t* node) {
     if (node == NULL) {
         return;
     }
-    printf("node %s\n", node->data);
+    printf("node %s\n", (const char*)node->data);
 }
-char* get_node_name(ast_t* node) {
+char* get_node_name(const ast_t* node) {
     if (node && node->data)
         return (char*)node->data;
     return NULL;
@@ -56,6 +56,7 @@ int main() {
     ast_t* child1 = add_child(root, "child1");
     ast_t* child2 = add_child(root, "child2");
     ast_t* child3 = add_child(root, "child3");
+    (void)child3; // var no usada, solo ejemplo
 
     // Añadir subhijos a uno de los hijos
     add_child(child1, "child1.1");
@@ -80,7 +81,7 @@ int main() {
 
     
     // Buscar un nodo por ruta
-    ast_t* found_node = search_node_by_route("root/child1/child1.1", root, get_node_name);
+    ast_t* found_node = search_node_by_route("root/child1/child1.1", root, (char * (*)(ast_t *))get_node_name);
     // Imprimir el resultado
     if (found_node != NULL) {
         printf("Found node: %s\n", get_node_name(found_node));

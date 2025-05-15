@@ -94,6 +94,15 @@ int main(){
     forEach(array);
 
     Destroy(array);
+    free(array);
+
+    free(n1);
+    free(n2);
+    free(n3);
+    free(n4);
+    free(n5);
+    free(n6);
+    free(n7);
 
     printf_color("\n");
 

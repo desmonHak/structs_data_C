@@ -52,6 +52,8 @@ void createColumns(Matriz* matriz, position columns);
 void createRow(Matriz* matriz, position row);
 dimensiones get_size_va_list(dimensiones dimensionesMatriz, va_list args);
 dimensiones get_size_size_total(dimensiones dimensionesMatriz, ...);
+dimensiones get_size_total_calc(dimensiones dimensionesMatriz, ...);
+dimensiones get_size_matriz(Matriz* self);
 ArrayList* dimensiones_matriz(dimensiones dimensionesMatriz, ...);
 ArrayList* dimensiones_matriz_va_list(dimensiones dimensionesMatriz, va_list args);
 

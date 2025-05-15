@@ -67,6 +67,7 @@ int main() {
     printf_color("Value for key 'key2': %d\n", *(int*)get(hashTable, (const char *)"key2"));
     printf_color("Value for key 'key3': %d\n", *(int*)get(hashTable, (const char *)"key3"));
 
+
     // Print hash table
     printf_color("Hash Table:\n");
     printHashTable(hashTable);

@@ -56,10 +56,10 @@ ast_t* create_ast_t(void *data);
 ast_node_t* create_ast_node_t(void *data);
 ast_t* clone_ast(ast_t* node);
 ast_t* add_child(ast_t* parent, void* data);
-void free_ast_t(ast_t* ast, void (*free_f)(void*));
-void inorder_ast(ast_t *node, void (*op)(ast_t *));
-void postorder_ast(ast_t* node, void (*op)(ast_t*));
-void preorder_ast(ast_t* node, void (*op)(ast_t*));
+void free_ast_t(const ast_t* ast, void (*free_f)(void*));
+void inorder_ast(const ast_t *node, void (*op)(const ast_t *));
+void postorder_ast(const ast_t* node, void (*op)(const ast_t*));
+void preorder_ast(const ast_t* node, void (*op)(const ast_t*));
 void print_ast_normal_order(ast_t* ast);
 void print_ast_ascii(ast_t* node, char* prefix, int is_last);
 void print_ast(

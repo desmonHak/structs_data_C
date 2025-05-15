@@ -80,12 +80,27 @@ typedef struct
     LinkedList*: back_v)(list)
 #endif
 
+#ifndef IS_USED
+#   ifndef _MSC_VER
+#       define IS_USED __attribute__((used))
+#   else
+#       define IS_USED
+#   endif
+#endif
 
-static LinkedList *table_matriz_ = NULL;
+static IS_USED LinkedList *table_matriz_ = NULL;
 
 // Declaración de funciones de inicialización y finalización
-void __attribute__((constructor)) __constructor_array_dinamic__();
-void __attribute__((destructor)) __destructor_array_dinamic__();
+void
+#ifndef _MSC_VER
+__attribute__((constructor))
+#endif
+__constructor_array_dinamic__();
+void
+#ifndef _MSC_VER
+__attribute__((destructor))
+#endif
+__destructor_array_dinamic__();
 
 // Declaración de funciones de la lista enlazada
 /**
@@ -155,7 +170,7 @@ void updateIds(LinkedList *list);
  *
  * @param list Lista enlazada a imprimir.
  */
-void printLinkedList(LinkedList *list);
+void printLinkedList(const LinkedList *list);
 
 /**
  * Libera la memoria utilizada por la lista enlazada y elimina los nodos de table_matriz_.
@@ -187,7 +202,7 @@ void *get_last(LinkedList *list);
  * @param list Lista enlazada.
  * @return Posición del último nodo, o -1 si la lista está vacía.
  */
-const position get_last_position(LinkedList *list);
+position get_last_position(LinkedList *list);
 
 /**
  * Verifica si un nodo dado existe en la lista enlazada.
@@ -213,7 +228,7 @@ bool existsID(LinkedList *list, const position ID);
  * @param list Lista enlazada.
  * @return true si la lista está vacía, false en caso contrario.
  */
-bool empty(LinkedList *list);
+bool empty(const LinkedList *list);
 
 /**
  * Inserta un nuevo nodo con el dato proporcionado al final de la lista enlazada y devuelve su posición.
@@ -222,7 +237,7 @@ bool empty(LinkedList *list);
  * @param data Dato a insertar en el nuevo nodo.
  * @return Posición del nuevo nodo insertado.
  */
-const position push_back_v(LinkedList *list, void *data);
+position push_back_v(LinkedList *list, void *data);
 
 /**
  * Elimina el último nodo de la lista enlazada y devuelve su posición.
@@ -230,7 +245,7 @@ const position push_back_v(LinkedList *list, void *data);
  * @param list Lista enlazada.
  * @return Posición del nodo eliminado, o -1 si la lista está vacía.
  */
-const position pop_back_v(LinkedList *list);
+position pop_back_v(LinkedList *list);
 
 /**
  * Obtiene la cantidad de nodos en la lista enlazada.
@@ -238,7 +253,7 @@ const position pop_back_v(LinkedList *list);
  * @param list Lista enlazada.
  * @return Cantidad de nodos en la lista.
  */
-const position size_v(LinkedList *list);
+position size_v(const LinkedList *list);
 
 /**
  * Obtiene la posición del nodo especificado en la lista enlazada.
@@ -246,7 +261,7 @@ const position size_v(LinkedList *list);
  * @param node Nodo a obtener la posición.
  * @return Posición del nodo, o -1 si el nodo no pertenece a ninguna lista.
  */
-const position get_position(Node *node);
+position get_position(Node *node);
 
 
 /**

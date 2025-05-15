@@ -41,8 +41,9 @@ ArrayList *createArrayList(position _size, void * _value){
             TYPE_DATA_DBG(void *, "_value = %p")
         END_TYPE_FUNC_DBG,
         _size, _value);
-    ArrayList *self ;//= (ArrayList *)malloc(sizeof(ArrayList));
+    ArrayList *self = NULL;//= (ArrayList *)malloc(sizeof(ArrayList));
     debug_malloc(ArrayList, self, 1*sizeof(ArrayList));
+    if (self == NULL) return NULL;
     
     /*
      *  
@@ -252,24 +253,25 @@ void shrink_to_fit(ArrayList *self){
     
 }
 
+/**
+ * Destroy(self): Libera la memoria asignada al arreglo, perno destruye el objeto ArrayList,
+ * debe liberarlo el programador. Devuelve un puntero nulo.
+ * @param self Array list del que liberar la lista, mas no los objetos de esta.
+ * @return puntero nulo con la memoria liberada
+ */
 void *Destroy(ArrayList *self){
     DEBUG_PRINT(DEBUG_LEVEL_INFO,
         INIT_TYPE_FUNC_DBG(void *, Destroy)
             TYPE_DATA_DBG(ArrayList *, "self = %p")
         END_TYPE_FUNC_DBG,
         self);
-    /*
-     *  
-     *  Destroy(self): Libera la memoria asignada para 
-     *  el arreglo y destruye el objeto ArrayList. 
-     *  Devuelve un puntero nulo.
-     * 
-     */
+
     if (self){
         free(self->Array);
         self->Array = NULL;
+
         return self->Array;
-    } 
+    }
     return NULL;
 }
 
