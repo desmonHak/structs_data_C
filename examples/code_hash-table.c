@@ -49,11 +49,11 @@ int main() {
     put(hashTable, "key2", &value2);
     put(hashTable, "key3", &value3);
 
-    for (size_t i = 0; i < 200; i++) {
+    for (size_t i = 0; i < ('Z' - 'A'); i++) {
         int* val = malloc(sizeof(int));
         *val = i;
         unsigned char key[2];
-        key[0] = 'A' + i% 'Z'; // Assuming the keys are 'A' to 'J'
+        key[0] = 'A' + (i % ('Z' - 'A')); // Assuming the keys are 'A' to 'J'
         key[1] = '\0';
         //printf_color("%s\n", key);
 
@@ -76,8 +76,12 @@ int main() {
     printf_color("Size: %zu\n", hashTable->size);
     printf_color("Capacity: %zu\n", hashTable->capacity);
 
+    updateValue(hashTable, "key1", NULL);
+    updateValue(hashTable, "key2", NULL);
+    updateValue(hashTable, "key3", NULL);
+
     // Free memory
-    freeHashTable(hashTable);
+    freeHashTable(hashTable, free);
     puts("memoria liberada");
 
     return 0;

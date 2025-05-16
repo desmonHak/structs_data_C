@@ -43,9 +43,9 @@ ArrayList *createArrayList(position _size, void * _value){
             TYPE_DATA_DBG(void *, "_value = %p")
         END_TYPE_FUNC_DBG,
         _size, _value);
-    ArrayList *self = NULL;//= (ArrayList *)malloc(sizeof(ArrayList));
-    debug_malloc(ArrayList, self, 1*sizeof(ArrayList));
-    if (self == NULL) return NULL;
+    ArrayList *self = nullptr;//= (ArrayList *)malloc(sizeof(ArrayList));
+    debug_calloc(ArrayList, self, 1, sizeof(ArrayList));
+    if (self == NULL) return nullptr;
     
     /*
      *  
@@ -86,7 +86,7 @@ void freeArrayList_struct(ArrayList **self) {
     if(self_->Array != NULL) free(self_->Array); // liberar la memoria del array dinamico
     free(self_); // liberar la memoria del objeto ArrayList
 
-    *self = NULL; // no dejar puntero colgante
+    *self = nullptr; // no dejar puntero colgante
 }
 
 /*

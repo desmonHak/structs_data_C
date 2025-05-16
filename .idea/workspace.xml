@@ -36,20 +36,15 @@
     <list default="true" id="483676e8-f716-4878-9b56-b9aed291660b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DebugLibC" beforeDir="false" afterPath="$PROJECT_DIR$/DebugLibC" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DebugLibC/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DebugLibC/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DebugLibC/debug_c.h" beforeDir="false" afterPath="$PROJECT_DIR$/DebugLibC/debug_c.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast.h" beforeDir="false" afterPath="$PROJECT_DIR$/ast.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/code_array-list.c" beforeDir="false" afterPath="$PROJECT_DIR$/examples/code_array-list.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/code_array-list_vector-list.c" beforeDir="false" afterPath="$PROJECT_DIR$/examples/code_array-list_vector-list.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DebugLibC/src/debug_c.c" beforeDir="false" afterPath="$PROJECT_DIR$/DebugLibC/src/debug_c.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/code_ast.c" beforeDir="false" afterPath="$PROJECT_DIR$/examples/code_ast.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/code_hash-table.c" beforeDir="false" afterPath="$PROJECT_DIR$/examples/code_hash-table.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/code_vector-list.c" beforeDir="false" afterPath="$PROJECT_DIR$/examples/code_vector-list.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/matriz-list.h" beforeDir="false" afterPath="$PROJECT_DIR$/matriz-list.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hash-table.h" beforeDir="false" afterPath="$PROJECT_DIR$/hash-table.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/array-list.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/array-list.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ast.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vector-list.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector-list.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vector-list.h" beforeDir="false" afterPath="$PROJECT_DIR$/vector-list.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash-table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash-table.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,62 +59,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
@@ -226,10 +165,10 @@
   "keyToString": {
     "CMake Application.code_array-list.executor": "Valgrind",
     "CMake Application.code_array-list_vector-list.executor": "Valgrind",
-    "CMake Application.code_ast.executor": "Run",
-    "CMake Application.code_hash-table.executor": "Debug",
+    "CMake Application.code_ast.executor": "Valgrind",
+    "CMake Application.code_hash-table.executor": "Valgrind",
     "CMake Application.code_matriz-list.executor": "Run",
-    "CMake Application.code_vector-list.executor": "Run",
+    "CMake Application.code_vector-list.executor": "Valgrind",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.RadMigrateCodeStyle": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -245,16 +184,11 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "CPPToolchains",
+    "settings.editor.selected.configurable": "terminal",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="CMake Application.code_ast">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="CMake Application.code_vector-list">
     <configuration name="code_array-list" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="structs_data_C" TARGET_NAME="code_array-list" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="structs_data_C" RUN_TARGET_NAME="code_array-list">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -304,6 +238,8 @@
       <workItem from="1746837719896" duration="55000" />
       <workItem from="1747248487006" duration="2767000" />
       <workItem from="1747294046752" duration="6126000" />
+      <workItem from="1747428249046" duration="798000" />
+      <workItem from="1747429067917" duration="3035000" />
     </task>
     <servers />
   </component>

@@ -97,6 +97,7 @@ int main() {
     //free(child2);
     //free(child3);
 
+    // no es necesario una subrutina de liberacion por que no se uso memoria dinamica
     free_ast_t(root, nullptr);
 
 

@@ -75,7 +75,7 @@ HashTable* createHashTable(size_t size) {
     debug_calloc(Entry*, hashTable->table, size, sizeof(Entry*));
     if (!hashTable->table) {
         free(hashTable); // Libera la memoria previamente asignada si falla.
-        return NULL;
+        return nullptr;
     }
     return hashTable;
 }
@@ -112,7 +112,7 @@ void put(HashTable* hashTable, const char* key, void* value) {
 
     entry->key = strdup(key);
     entry->value = value;
-    entry->next = NULL;
+    entry->next = nullptr;
 
     if (hashTable->table[index] == NULL) {
         hashTable->table[index] = entry;
@@ -257,6 +257,7 @@ void freeHashTable_all(HashTable* hashTable, void (*freeValue)(void*)) {
         while (entry != NULL) {
             Entry* temp = entry;
             entry = entry->next;
+
             free(temp->key);
             if (freeValue != NULL && temp->value != NULL) {
                 freeValue(temp->value);
@@ -266,10 +267,40 @@ void freeHashTable_all(HashTable* hashTable, void (*freeValue)(void*)) {
     }
 
     free(hashTable->table);
-    hashTable->table = NULL;    // Evitar referencias colgantes
+    hashTable->table = nullptr;    // Evitar referencias colgantes
     free(hashTable);
-    hashTable = NULL;           // Opcional, pero recomendable
+
     DEBUG_PRINT(DEBUG_LEVEL_INFO,"HashTable con valores dinámicos liberada.\n");
 }
+
+void updateValue(HashTable* hashTable, const char* key, void* newValue) {
+    DEBUG_PRINT(DEBUG_LEVEL_INFO,
+        INIT_TYPE_FUNC_DBG(void, updateValue)
+            TYPE_DATA_DBG(HashTable*, "hashTable = %p")
+            TYPE_DATA_DBG(const char*, "key = %s")
+            TYPE_DATA_DBG(void*, "newValue = %p")
+        END_TYPE_FUNC_DBG,
+        hashTable, key, newValue);
+
+    if (hashTable == NULL || key == NULL) {
+        DEBUG_PRINT(DEBUG_LEVEL_WARNING, "updateValue: Tabla hash o clave nula.\n");
+        return;
+    }
+
+    size_t index = hash(key, hashTable->capacity);
+    Entry* entry = hashTable->table[index];
+
+    while (entry != NULL) {
+        if (strcmp(entry->key, key) == 0) {
+            entry->value = newValue;
+            DEBUG_PRINT(DEBUG_LEVEL_INFO, "Valor actualizado para la clave '%s'.\n", key);
+            return;
+        }
+        entry = entry->next;
+    }
+
+    DEBUG_PRINT(DEBUG_LEVEL_WARNING, "updateValue: Clave '%s' no encontrada, no se actualizó ningún valor.\n", key);
+}
+
 
 #endif

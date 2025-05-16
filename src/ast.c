@@ -46,7 +46,7 @@ void postorder_ast(const ast_t* node, void (*op)(const ast_t*)) {
     for (size_t i = 0; i < size_a(node->ramas); i++) {
         // Obtener el hijo actual del ArrayList de ramas
         const ast_t* child = (ast_t*)get_element_a(node->ramas, i);
-        
+        if (child == NULL) return;
         // Llamada recursiva para procesar el subárbol del hijo
         postorder_ast(child, op);
     }
@@ -83,6 +83,10 @@ void postorder_free(ast_t* node) {
     // 1. Liberar datos del nodo si existe la función
     if (current_free != NULL && node->data != NULL) {
         current_free(node->data);
+    }
+
+    if (node->ramas != NULL) {
+        freeArrayList(&(node->ramas));
     }
 
     // 2. Finalmente liberar el nodo mismo

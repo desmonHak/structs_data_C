@@ -169,7 +169,16 @@ int main()
     insertNode(list, n5);
     insertNode(list, n5);
     printf_color("size del vector: %d\n", size_v(list));
+
+    free(n1);
+    free(n2);
+    free(n3);
+    free(n4);
+    free(n5);
+
     freeLinkedList(list);
+    list = nullptr;
+
     printLinkedList(list);
 
     return 0;
