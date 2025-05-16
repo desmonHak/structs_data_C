@@ -199,6 +199,12 @@
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/array-list.c" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectApplicationVersion">
@@ -220,7 +226,7 @@
   "keyToString": {
     "CMake Application.code_array-list.executor": "Valgrind",
     "CMake Application.code_array-list_vector-list.executor": "Valgrind",
-    "CMake Application.code_ast.executor": "Valgrind",
+    "CMake Application.code_ast.executor": "Run",
     "CMake Application.code_hash-table.executor": "Debug",
     "CMake Application.code_matriz-list.executor": "Run",
     "CMake Application.code_vector-list.executor": "Run",
@@ -297,7 +303,7 @@
       <updated>1746837718221</updated>
       <workItem from="1746837719896" duration="55000" />
       <workItem from="1747248487006" duration="2767000" />
-      <workItem from="1747294046752" duration="5359000" />
+      <workItem from="1747294046752" duration="6126000" />
     </task>
     <servers />
   </component>
