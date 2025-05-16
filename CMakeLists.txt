@@ -9,7 +9,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Configuraciones específicas por tipo de compilación
-set(CMAKE_C_FLAGS_DEBUG "-g -O0 -Wall -Wpedantic -D_ExceptionHandler")
+set(CMAKE_C_FLAGS_DEBUG "-g  -DDEBUG_ENABLE -O0 -Wall -Wpedantic -D_ExceptionHandler")
 set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG -D_ExceptionHandler")
 
 include_directories(.)

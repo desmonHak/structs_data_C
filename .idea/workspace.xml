@@ -34,17 +34,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="483676e8-f716-4878-9b56-b9aed291660b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DebugLibC" beforeDir="false" afterPath="$PROJECT_DIR$/DebugLibC" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DebugLibC/src/debug_c.c" beforeDir="false" afterPath="$PROJECT_DIR$/DebugLibC/src/debug_c.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/code_ast.c" beforeDir="false" afterPath="$PROJECT_DIR$/examples/code_ast.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/code_hash-table.c" beforeDir="false" afterPath="$PROJECT_DIR$/examples/code_hash-table.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/code_vector-list.c" beforeDir="false" afterPath="$PROJECT_DIR$/examples/code_vector-list.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hash-table.h" beforeDir="false" afterPath="$PROJECT_DIR$/hash-table.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/array-list.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/array-list.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ast.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash-table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash-table.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +157,7 @@
     "CMake Application.code_array-list_vector-list.executor": "Valgrind",
     "CMake Application.code_ast.executor": "Valgrind",
     "CMake Application.code_hash-table.executor": "Valgrind",
-    "CMake Application.code_matriz-list.executor": "Run",
+    "CMake Application.code_matriz-list.executor": "Valgrind",
     "CMake Application.code_vector-list.executor": "Valgrind",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.RadMigrateCodeStyle": "true",
@@ -239,7 +229,7 @@
       <workItem from="1747248487006" duration="2767000" />
       <workItem from="1747294046752" duration="6126000" />
       <workItem from="1747428249046" duration="798000" />
-      <workItem from="1747429067917" duration="3035000" />
+      <workItem from="1747429067917" duration="3368000" />
     </task>
     <servers />
   </component>
