@@ -9,7 +9,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Configuraciones específicas por tipo de compilación
-set(CMAKE_C_FLAGS_DEBUG "-g  -DDEBUG_ENABLE -O0 -Wall -Wpedantic -D_ExceptionHandler")
+set(CMAKE_C_FLAGS_DEBUG "-ggdb  -DDEBUG_ENABLE -O0 -Wall -Wpedantic -D_ExceptionHandler")
 set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG -D_ExceptionHandler")
 
 include_directories(.)
@@ -187,3 +187,35 @@ add_executable(code_array-list
         vector-list.h
         examples/code_array-list.c)
 target_link_libraries(code_array-list m)
+
+# Configuraciones específicas por tipo de compilación
+set(CMAKE_C_FLAGS_DEBUG "-g -O0 -Wall -Wpedantic -D_ExceptionHandler")
+set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG -D_ExceptionHandler")
+# examples/code_array-list.c
+add_executable(code_hash-table-dynamic
+        CIterators/include/CIterators.h
+        CIterators/include/CSortting.h
+        CIterators/src/CIterators.c
+        CIterators/src/CSortting.c
+        DebugLibC/colors-C-C-plus-plus/src/colors.c
+        DebugLibC/colors-C-C-plus-plus/colors.h
+        DebugLibC/src/debug_c.c
+        DebugLibC/src/error_c.c
+        DebugLibC/src/time_code.c
+        DebugLibC/debug_c.h
+        DebugLibC/error_c.h
+        DebugLibC/time_code.h
+        src/array-list.c
+        src/ast.c
+        src/hash-table.c
+        src/matriz-list.c
+        src/vector-list.c
+        src/hash-table-dynamic.c
+        array-list.h
+        ast.h
+        hash-table.h
+        matriz-list.h
+        vector-list.h
+        hash-table-dynamic.h
+        examples/code_hash-table-dynamic.c)
+target_link_libraries(code_hash-table-dynamic m)

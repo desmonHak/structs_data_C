@@ -38,8 +38,34 @@
 #include "hash-table.h"
 
 int main() {
+    typedef struct datos_t {
+        int a;
+        int b;
+    } datos_t;
 
-    HashTable* hashTable = createHashTable(100);
+    datos_t *datos = calloc(1, sizeof(datos));
+    *datos = (datos_t){
+        .a = 0xbbff,
+        .b = 0xffaa
+    };
+
+    const char* texto = (char*)datos;
+    size_t out_len;
+
+    // Codificar
+    char* b64 = base64_encode((const unsigned char*)texto, sizeof(datos_t), &out_len);
+    printf("Base64: \"%s\"\n", b64);
+
+    // Decodificar
+    size_t decoded_len;
+    unsigned char* decoded = base64_decode(b64, out_len, &decoded_len);
+
+    printf("Decodificado: \"%.*s\"\n", (int)decoded_len, decoded);
+
+
+    HashTable* hashTable = createHashTable(20);
+    printf("hashTable->capacity = %zu\n", hashTable->capacity);
+    printf("hashTable->size = %zu\n", hashTable->size);
 
     // Insert values
     int value1 = 10;
@@ -76,13 +102,45 @@ int main() {
     printf_color("Size: %zu\n", hashTable->size);
     printf_color("Capacity: %zu\n", hashTable->capacity);
 
+    // actualizar los valores key1, key2 y key3
     updateValue(hashTable, "key1", NULL);
     updateValue(hashTable, "key2", NULL);
     updateValue(hashTable, "key3", NULL);
 
+    printf("hashTable->capacity = %zu\n", hashTable->capacity);
+    printf("hashTable->size = %zu\n", hashTable->size);
+
+    // almacenar una estructura, usando la propia estructura como clave:
+    //put_static(hashTable, b64, datos);
+
+    // la clave, no puede ser el mismo puntero que los datos, por eso usaremos una estructura como
+    // datos y otra como clave para el ejemplo
+    datos_t datos_key = {
+        .a = 0xbbff,
+        .b = 0xffaa
+    };
+
+    put_static_struct(hashTable, &datos_key, sizeof(datos_t), datos);
+
+    printf_color("\n\nHash Table:\n");
+    printHashTable(hashTable);
+
+    void *datos_recuperados = get_static_struct(hashTable, &datos_key, sizeof(datos_t));
+    printf("datos_recuperados = %p\n", datos_recuperados);
+
+
+
+
+
     // Free memory
     freeHashTable(hashTable, free);
     puts("memoria liberada");
+
+    // la clave, debe liberarse, pues "freeHashTable" no libera las claves originales,
+    // "put_static" hace una copia de las claves introducidas.
+    free(b64);
+    free(decoded);
+
 
     return 0;
 }

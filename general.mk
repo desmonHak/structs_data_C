@@ -10,7 +10,7 @@ all: generate_lib
 	$(MAKE) -C . -f $(MAKE_NAME) examples
 
 TESTS = code_array-list code_hash-table code_matriz-list code_vector-list \
-		code_array-list_vector-list code_ast  
+		code_array-list_vector-list code_ast code_hash-table-dynamic
 
 # Regla principal que genera todos los tests
 examples: $(addprefix $(PATH_EXAMPLES)/, $(addsuffix .$(EXTENSION), $(TESTS)))
@@ -37,6 +37,9 @@ $(TARGET)_debug.a: $(OBJECTS_DEBUG)
 hash-table.o: $(PATH_SRC)/hash-table.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
+hash-table-dynamic.o: $(PATH_SRC)/hash-table-dynamic.c
+	$(CC) $(CFLAGS) -c $^ -o $@
+
 array-list.o: $(PATH_SRC)/array-list.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
@@ -51,6 +54,9 @@ ast.o: $(PATH_SRC)/ast.c
 
 hash-table_debug.o: $(PATH_SRC)/hash-table.c
 	$(CC) $(CFLAGS_DEBUG) -c $^ -o $@
+
+hash-table-dynamic_debug.o: $(PATH_SRC)/hash-table-dynamic_debug.c
+	$(CC) $(CFLAGS) -c $^ -o $@
 
 array-list_debug.o: $(PATH_SRC)/array-list.c
 	$(CC) $(CFLAGS_DEBUG) -c $^ -o $@
