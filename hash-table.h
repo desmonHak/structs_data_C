@@ -137,14 +137,14 @@ unsigned char* base64_decode(const char* data, size_t input_length, size_t* outp
 #undef      freeHashTable_all
 #define     freeHashTable_all(hash_table, ...) _Generic((hash_table),     \
 HashTable*: freeHashTable_static_all,                                \
-default: freeHashTable_static_all)(hash_table,__VA_ARGS__)
+default: freeHashTable_static_all)(hash_table,##__VA_ARGS__)
 #endif
 
 #ifndef     freeHashTable_struct
 #undef      freeHashTable_struct
 #define     freeHashTable_struct(hash_table, ...) _Generic((hash_table),     \
 HashTable*: freeHashTable_static_struct,                                \
-default: freeHashTable_static_struct)(hash_table,__VA_ARGS__)
+default: freeHashTable_static_struct)(hash_table,##__VA_ARGS__)
 #endif
 
 #ifndef freeHashTable
