@@ -93,8 +93,22 @@ void put_static(HashTable *hashTable, const char *key, void *value);
 #endif
 
 void printHashTable(HashTable *hashTable);
+
 void freeHashTable_static_struct(HashTable *hashTable);
+#ifndef     freeHashTable_struct
+#define     freeHashTable_struct(hash_table) _Generic((hash_table),     \
+HashTable*: freeHashTable_static_struct,                                \
+default: freeHashTable_static_struct)(hash_table);
+#endif
+
 void freeHashTable_static_all(HashTable* hashTable, void (*freeValue)(void*));
+#ifndef     freeHashTable_all
+#define     freeHashTable_all(hash_table, ...) _Generic((hash_table),     \
+HashTable*: freeHashTable_static_all,                                \
+default: freeHashTable_static_all)(hash_table,__VA_ARGS__);
+#endif
+
+
 
 void updateValue_static(HashTable* hashTable, const char* key, void* newValue);
 #ifndef updateValue
@@ -124,6 +138,9 @@ static inline size_t get_capacity_HashTable(HashTable *hashTable) {
 
 bool resizeHashTable(HashTable* hashTable, size_t newCapacity);
 
+bool remove_static(HashTable* hashTable, const char* key);
+bool remove_static_struct(HashTable* hashTable, void* key, size_t length_key);
+
 char* base64_encode(const unsigned char* data, size_t input_length, size_t* output_length);
 unsigned char* base64_decode(const char* data, size_t input_length, size_t* output_length);
 
@@ -133,22 +150,11 @@ unsigned char* base64_decode(const char* data, size_t input_length, size_t* outp
 #define freeHashTable_static(...) GET_MACRO(__VA_ARGS__, freeHashTable_static_all, freeHashTable_static_struct)(__VA_ARGS__)
 #endif
 
-#ifndef     freeHashTable_all
-#undef      freeHashTable_all
-#define     freeHashTable_all(hash_table, ...) _Generic((hash_table),     \
-HashTable*: freeHashTable_static_all,                                \
-default: freeHashTable_static_all)(hash_table,__VA_ARGS__)
-#endif
 
-#ifndef     freeHashTable_struct
-#undef      freeHashTable_struct
-#define     freeHashTable_struct(hash_table, ...) _Generic((hash_table),     \
-HashTable*: freeHashTable_static_struct,                                \
-default: freeHashTable_static_struct)(hash_table,__VA_ARGS__)
-#endif
+
 
 #ifndef freeHashTable
-#define freeHashTable freeHashTable_all
+#define freeHashTable freeHashTable_struct
 #endif
 
 #ifdef INCLUDE_COLORS_C

@@ -278,6 +278,82 @@ void* get_static_struct(HashTable* hashTable, void *key,
 }
 
 /**
+ * Elimina una entrada de la tabla de hash por su clave.
+ * Libera la memoria de la clave y la estructura Entry, pero NO libera
+ * el valor almacenado (eso lo debe manejar el usuario).
+ *
+ * Se calcula el índice de la tabla con el hash de la clave.
+ * Se itera sobre la lista enlazada en ese índice, buscando la clave.
+ * Si se encuentra:
+ *     Si la entrada está al inicio, se actualiza el puntero del bucket para que apunte al siguiente.
+ *     Si está en medio o al final, se conecta el anterior con el siguiente (saltando la entrada a eliminar).
+ * Se libera la memoria de la clave (que fue duplicada con strdup) y la estructura Entry.
+ * Se decrementa el tamaño (hashTable->size) para reflejar la eliminación.
+ * Se retorna true si se eliminó, false si no se encontró la clave.
+ *
+ * @param hashTable Tabla de hash donde eliminar el valor.
+ * @param key Clave que identifica el valor a eliminar.
+ * @return true si se encontró y eliminó la entrada, false si no se encontró.
+ */
+bool remove_static(HashTable* hashTable, const char* key) {
+    if (hashTable == NULL || key == NULL) {
+        return false;
+    }
+
+    size_t index = hash_djb2(key, hashTable->capacity);
+    Entry* current = hashTable->table[index];
+    Entry* prev = NULL;
+
+    while (current != NULL) {
+        if (strcmp(current->key, key) == 0) {
+            // Encontramos la entrada a eliminar
+            if (prev == NULL) {
+                // Es el primer elemento de la lista
+                hashTable->table[index] = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            free(current->key);
+            free(current);
+            hashTable->size--;
+            return true;
+        }
+        prev = current;
+        current = current->next;
+    }
+
+    // No se encontró la clave
+    return false;
+}
+
+/**
+ * Elimina una entrada de la tabla de hash usando como clave una estructura o datos binarios.
+ * @param hashTable Tabla de hash donde eliminar el valor.
+ * @param key Puntero a la clave binaria.
+ * @param length_key Tamaño en bytes de la clave.
+ * @return true si se eliminó la entrada, false si no se encontró.
+ */
+bool remove_static_struct(HashTable* hashTable, void* key, size_t length_key) {
+    if (hashTable == NULL || key == NULL || length_key == 0) {
+        return false;
+    }
+
+    size_t out_len;
+    // Codificamos la clave binaria a base64 para convertirla en cadena imprimible
+    char* b64 = base64_encode((const unsigned char*)key, length_key, &out_len);
+    if (b64 == NULL) {
+        return false;
+    }
+
+    // Llamamos a remove_static con la clave base64
+    bool result = remove_static(hashTable, b64);
+
+    free(b64);
+    return result;
+}
+
+
+/**
  * Permite imprimir la tabla de hash con su valores:
  * @param hashTable tabla de hash que imprimir.
  */

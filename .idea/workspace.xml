@@ -35,16 +35,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="483676e8-f716-4878-9b56-b9aed291660b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/examples/code_hash-table-dynamic.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hash-table-dynamic.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hash-table-dynamic.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/code_hash-table.c" beforeDir="false" afterPath="$PROJECT_DIR$/examples/code_hash-table.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hash-table.h" beforeDir="false" afterPath="$PROJECT_DIR$/hash-table.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hash-table.md" beforeDir="false" afterPath="$PROJECT_DIR$/hash-table.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash-table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash-table.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -524,7 +515,7 @@
       <workItem from="1747428249046" duration="798000" />
       <workItem from="1747429067917" duration="3368000" />
       <workItem from="1750587504412" duration="8983000" />
-      <workItem from="1750669210537" duration="9396000" />
+      <workItem from="1750669210537" duration="10547000" />
     </task>
     <servers />
   </component>
