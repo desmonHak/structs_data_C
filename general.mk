@@ -55,7 +55,7 @@ ast.o: $(PATH_SRC)/ast.c
 hash-table_debug.o: $(PATH_SRC)/hash-table.c
 	$(CC) $(CFLAGS_DEBUG) -c $^ -o $@
 
-hash-table-dynamic_debug.o: $(PATH_SRC)/hash-table-dynamic_debug.c
+hash-table-dynamic_debug.o: $(PATH_SRC)/hash-table-dynamic.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 array-list_debug.o: $(PATH_SRC)/array-list.c
