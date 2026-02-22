@@ -11,7 +11,7 @@
  * @return ast_node_t* nodo nuevo creado con los datos indicados
  */
 ast_node_t* create_ast_node_t(void *data) {
-    ast_node_t* node = (ast_node_t*)malloc(sizeof(ast_node_t));
+    ast_node_t* node = (ast_node_t*)calloc(1, sizeof(ast_node_t));
     if (!node) {
         perror("Failed to allocate memory for ASTNode");
         exit(EXIT_FAILURE);
